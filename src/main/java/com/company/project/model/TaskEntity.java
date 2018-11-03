@@ -24,7 +24,8 @@ public class TaskEntity extends AbstractEntity {
 
     @Enumerated(value = EnumType.STRING)
     private Priority priority;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+                           CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinTable(name = "TASK_USER",
             joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<UserEntity> users = new LinkedHashSet<>();
@@ -45,7 +46,7 @@ public class TaskEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof TaskEntity)) return false;
         TaskEntity that = (TaskEntity) o;
-        return
+        return  Objects.equals(this.getId(),that.getId()) &&
                 Objects.equals(name, that.name) &&
                         Objects.equals(description, that.description) &&
                         priority == that.priority;
@@ -53,7 +54,7 @@ public class TaskEntity extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, priority);
+        return Objects.hash(name, description, priority,this.getId());
 
     }
 }

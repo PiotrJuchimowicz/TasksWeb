@@ -53,11 +53,12 @@ public class GroupEntity extends AbstractEntity {
         if (!(o instanceof GroupEntity)) return false;
         GroupEntity that = (GroupEntity) o;
         return
+                Objects.equals(this.getId(),that.getId()) &&
                 Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name,this.getId());
     }
 }

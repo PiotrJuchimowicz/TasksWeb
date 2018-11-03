@@ -29,11 +29,12 @@ public class TableEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof TableEntity)) return false;
         TableEntity that = (TableEntity) o;
-        return Objects.equals(name, that.name);
+        return  Objects.equals(this.getId(),that.getId()) &&
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name,this.getId());
     }
 }

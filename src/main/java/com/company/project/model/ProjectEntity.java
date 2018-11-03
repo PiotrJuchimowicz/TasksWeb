@@ -45,12 +45,13 @@ public class ProjectEntity extends AbstractEntity {
         if (!(o instanceof ProjectEntity)) return false;
         ProjectEntity that = (ProjectEntity) o;
         return
+                Objects.equals(this.getId(),that.getId()) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description);
+        return Objects.hash(name, description,this.getId());
     }
 }
