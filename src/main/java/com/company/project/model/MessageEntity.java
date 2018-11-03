@@ -38,7 +38,7 @@ public class MessageEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof MessageEntity)) return false;
         MessageEntity that = (MessageEntity) o;
-        return  Objects.equals(this.getId(),that.getId()) &&
+        return
                 Objects.equals(subject, that.subject) &&
                 Objects.equals(body, that.body) &&
                 Objects.equals(postDate, that.postDate);
@@ -46,6 +46,6 @@ public class MessageEntity extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(subject, body, postDate,this.getId());
+        return Objects.hash(subject, body, postDate);
     }
 }

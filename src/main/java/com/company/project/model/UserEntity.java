@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -25,19 +24,20 @@ public class UserEntity extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "group_id")
     private GroupEntity group;
-    @ManyToMany(mappedBy = "users",cascade = {CascadeType.DETACH,CascadeType.MERGE,
-                                              CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "users", cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Set<TaskEntity> tasks = new LinkedHashSet<>();
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-               CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.LAZY)
+            CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Set<ProjectEntity> managedProjects = new LinkedHashSet<>();
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     private AccountEntity account;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",fetch = FetchType.EAGER)//eager because one user can have up to 3 roles
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+//eager because one user can have up to 3 roles
     private Set<RoleEntity> roles = new LinkedHashSet<>();
     @OneToMany(mappedBy = "creator", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-               CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.LAZY)
+            CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private Set<ConversationEntity> createdConversations = new LinkedHashSet<>();
 
     public UserEntity() {
@@ -47,7 +47,7 @@ public class UserEntity extends AbstractEntity {
         this.roles.add(roleEntity);
     }
 
-   public void removeRole(RoleEntity roleEntity) {
+    public void removeRole(RoleEntity roleEntity) {
         this.roles.remove(roleEntity);
     }
 
@@ -55,16 +55,16 @@ public class UserEntity extends AbstractEntity {
         this.createdConversations.add(conversationEntity);
     }
 
-   public void removeConversation(ConversationEntity conversationEntity) {
+    public void removeConversation(ConversationEntity conversationEntity) {
         this.createdConversations.remove(conversationEntity);
     }
 
-    public void addToManagedProjects(ProjectEntity projectEntity){
+    public void addToManagedProjects(ProjectEntity projectEntity) {
         this.managedProjects.add(projectEntity);
         projectEntity.setOwner(this);
     }
 
-    public void removeFromManagedProjects(ProjectEntity projectEntity){
+    public void removeFromManagedProjects(ProjectEntity projectEntity) {
         this.managedProjects.remove(projectEntity);
         projectEntity.setOwner(null);
     }
@@ -75,8 +75,7 @@ public class UserEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof UserEntity)) return false;
         UserEntity that = (UserEntity) o;
-        return  Objects.equals(this.getId(), that.getId()) &&
-                Objects.equals(name, that.name) &&
+        return Objects.equals(name, that.name) &&
                 Objects.equals(surname, that.surname) &&
                 Objects.equals(phone, that.phone) &&
                 Objects.equals(birthDate, that.birthDate);
@@ -84,6 +83,7 @@ public class UserEntity extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, phone, birthDate, this.getId());
+        return Objects.hash(name, surname, phone, birthDate);
+
     }
 }

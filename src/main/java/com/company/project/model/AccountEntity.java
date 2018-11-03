@@ -40,7 +40,7 @@ public class AccountEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof AccountEntity)) return false;
         AccountEntity that = (AccountEntity) o;
-        return  Objects.equals(this.getId(),that.getId()) &&
+        return
                 Objects.equals(email, that.email) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(verificationCode, that.verificationCode) &&
@@ -49,6 +49,6 @@ public class AccountEntity extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, password, verificationCode, isActive,this.getId());
+        return Objects.hash(email, password, verificationCode, isActive);
     }
 }

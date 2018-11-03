@@ -44,13 +44,13 @@ public class ConversationEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof ConversationEntity)) return false;
         ConversationEntity that = (ConversationEntity) o;
-        return  Objects.equals(this.getId(),that.getId()) &&
+        return
                 Objects.equals(title, that.title) &&
                 Objects.equals(creationDate, that.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, creationDate,this.getId());
+        return Objects.hash(title, creationDate);
     }
 }
