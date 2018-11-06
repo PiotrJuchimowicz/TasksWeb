@@ -18,7 +18,6 @@ import java.util.Optional;
 public abstract class AbstractServiceImpl<T extends AbstractEntity> implements AbstractService<T> {
     private AbstractRepository<T> abstractRepository;
 
-
     protected AbstractServiceImpl(AbstractRepository<T> abstractRepository) {
         this.abstractRepository = abstractRepository;
     }
@@ -50,7 +49,7 @@ public abstract class AbstractServiceImpl<T extends AbstractEntity> implements A
     public void delete(T object) {
         if (!ifObjectExistsInDatabase(object))
             throw new UnableToFindObjectException("Unable to find object " + object + " in database");
-        abstractRepository.delete(object);
+        abstractRepository.deleteById(object.getId());
     }
 
     @Override
