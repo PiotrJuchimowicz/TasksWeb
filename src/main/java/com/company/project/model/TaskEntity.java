@@ -28,6 +28,7 @@ public class TaskEntity extends AbstractEntity {
                            CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinTable(name = "TASK_USER",
             joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @OrderBy("id")
     private Set<UserEntity> users = new LinkedHashSet<>();
 
     public void addUser(UserEntity userEntity) {

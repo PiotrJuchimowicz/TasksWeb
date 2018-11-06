@@ -26,6 +26,7 @@ public class ConversationEntity extends AbstractEntity {
     private UserEntity creator;
     @OneToMany(mappedBy = "conversation",
                cascade = {CascadeType.ALL},orphanRemoval = true,fetch = FetchType.LAZY)
+    @OrderBy("id")
     private Set<MessageEntity> messages = new LinkedHashSet<>();
 
     public void addMessage(MessageEntity messageEntity){

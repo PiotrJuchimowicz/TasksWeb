@@ -19,6 +19,7 @@ public class ProjectEntity extends AbstractEntity {
     private String name;
     private String description;
     @OneToMany(mappedBy = "project",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+    @OrderBy("id")
     private Set<TableEntity> tables = new LinkedHashSet<>();
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
             CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER)
