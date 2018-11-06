@@ -1,7 +1,9 @@
-package com.company.project.repository;
+package com.company.project;
 
 import com.company.project.model.RoleEntity;
 import com.company.project.model.UserEntity;
+import com.company.project.repository.RoleRepository;
+import com.company.project.repository.UserRepository;
 import org.hibernate.Hibernate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

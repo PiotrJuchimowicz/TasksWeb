@@ -1,7 +1,9 @@
-package com.company.project.repository;
+package com.company.project;
 
 import com.company.project.model.AccountEntity;
 import com.company.project.model.UserEntity;
+import com.company.project.repository.AccountRepository;
+import com.company.project.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
