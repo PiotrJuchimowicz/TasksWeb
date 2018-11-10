@@ -12,5 +12,5 @@ public class AccountDto extends AbstractDto {
     private String email;
     private String password;
     private String verificationCode;
-    private Boolean isActive;
+    private boolean isActive;
 }
