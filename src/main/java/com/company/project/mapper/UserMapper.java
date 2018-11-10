@@ -29,6 +29,7 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
             throw new MapperException("Unable to map from UserDto to UserEntity");
         }
         UserEntity userEntity = new UserEntity();
+        userEntity.setId(userDto.getId());
         userEntity.setName(userDto.getName());
         userEntity.setSurname(userDto.getSurname());
         userEntity.setBirthDate(userDto.getBirthDate());

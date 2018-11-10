@@ -13,8 +13,9 @@ public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> 
             throw new MapperException("Unable to map from AccountDto to AccountEntity");
         }
         AccountEntity accountEntity = new AccountEntity();
+        accountEntity.setId(accountDto.getId());
         accountEntity.setEmail(accountDto.getEmail());
-        accountEntity.setIsActive(accountDto.getIsActive());
+        accountEntity.setActive(accountDto.isActive());
         accountEntity.setPassword(accountDto.getPassword());
         accountEntity.setVerificationCode(accountDto.getVerificationCode());
         return accountEntity;
@@ -28,7 +29,7 @@ public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> 
         AccountDto accountDto = new AccountDto();
         accountDto.setId(accountEntity.getId());
         accountDto.setEmail(accountEntity.getEmail());
-        accountDto.setIsActive(accountEntity.getIsActive());
+        accountDto.setActive(accountEntity.isActive());
         accountDto.setPassword(accountEntity.getPassword());
         accountDto.setVerificationCode(accountEntity.getVerificationCode());
         return accountDto;

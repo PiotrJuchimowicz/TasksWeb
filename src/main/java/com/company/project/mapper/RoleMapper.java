@@ -13,6 +13,7 @@ public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
             throw new MapperException("Unable to map from RoleDto to RoleEntity");
         }
         RoleEntity roleEntity = new RoleEntity();
+        roleEntity.setId(roleDto.getId());
         roleEntity.setRoleName(RoleEntity.Role.valueOf(roleDto.getRoleName()));
         return roleEntity;
     }
