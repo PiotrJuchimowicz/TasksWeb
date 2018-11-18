@@ -49,18 +49,22 @@ public class UserEntity extends AbstractEntity {
 
     public void addRole(RoleEntity roleEntity) {
         this.roles.add(roleEntity);
+        roleEntity.setUser(this);
     }
 
     public void removeRole(RoleEntity roleEntity) {
         this.roles.remove(roleEntity);
+        roleEntity.setUser(null);
     }
 
     public void addConversation(ConversationEntity conversationEntity) {
         this.createdConversations.add(conversationEntity);
+        conversationEntity.setCreator(this);
     }
 
     public void removeConversation(ConversationEntity conversationEntity) {
         this.createdConversations.remove(conversationEntity);
+        conversationEntity.setCreator(null);
     }
 
     public void addToManagedProjects(ProjectEntity projectEntity) {

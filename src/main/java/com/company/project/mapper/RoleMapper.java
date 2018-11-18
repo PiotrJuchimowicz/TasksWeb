@@ -8,24 +8,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
     @Override
-    public RoleEntity fromDtoToEntity(RoleDto roleDto) {
-        if(roleDto==null){
+    public void fromDtoToEntity(RoleDto roleDto,RoleEntity roleEntity) {
+        if(roleDto==null || roleEntity==null){
             throw new MapperException("Unable to map from RoleDto to RoleEntity");
         }
-        RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setId(roleDto.getId());
-        roleEntity.setRoleName(RoleEntity.Role.valueOf(roleDto.getRoleName()));
-        return roleEntity;
+        roleEntity.setRoleValue(RoleEntity.Role.valueOf(roleDto.getRoleName()));
     }
 
     @Override
-    public RoleDto fromEntityToDto(RoleEntity roleEntity) {
-        if(roleEntity == null){
-            throw  new MapperException("Unable to map from RoleEntity to RoleDto");
+    public void fromEntityToDto(RoleEntity roleEntity,RoleDto roleDto) {
+        if(roleEntity == null || roleDto==null) {
+            throw new MapperException("Unable to map from RoleEntity to RoleDto");
         }
-        RoleDto roleDto = new RoleDto();
         roleDto.setId(roleEntity.getId());
-        roleDto.setRoleName(roleEntity.getRoleName().toString());
-        return roleDto;
+        roleDto.setRoleName(roleEntity.getRoleValue().toString());
     }
 }

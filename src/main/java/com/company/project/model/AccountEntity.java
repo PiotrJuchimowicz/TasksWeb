@@ -16,10 +16,8 @@ public class AccountEntity extends AbstractEntity {
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
-    @Column(name = "verification_code")
-    private String verificationCode;
     @Column(name = "is_active")
-    private Boolean isActive = false;
+    private boolean isActive = false;
     @OneToOne(mappedBy = "account", cascade = {CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.DETACH, CascadeType.REFRESH,CascadeType.REMOVE},fetch = FetchType.EAGER)
     private UserEntity user;
@@ -44,12 +42,11 @@ public class AccountEntity extends AbstractEntity {
                 Objects.equals(this.getId(),that.getId()) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(password, that.password) &&
-                Objects.equals(verificationCode, that.verificationCode) &&
                 Objects.equals(isActive, that.isActive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, password, verificationCode, isActive,this.getId());
+        return Objects.hash(email, password, isActive,this.getId());
     }
 }

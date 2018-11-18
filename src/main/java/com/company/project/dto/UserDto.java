@@ -22,11 +22,4 @@ public class UserDto extends AbstractDto {
     private String surname;
     private String phone;
     private LocalDate birthDate;
-    private AccountDto accountDto;
-
-    private Set<RoleDto> roleDtos = new LinkedHashSet<>();
-
-    public void addRole(RoleDto roleDto){
-        roleDtos.add(roleDto);
-    }
 }

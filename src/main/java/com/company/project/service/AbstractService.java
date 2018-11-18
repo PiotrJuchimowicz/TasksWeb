@@ -12,7 +12,7 @@ public interface AbstractService<T extends AbstractEntity> {
 
     T read(Long id);
 
-    void delete(T object);
+    void deleteById(Long id);
 
     void deleteAll();
 

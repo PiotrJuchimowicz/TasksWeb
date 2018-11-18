@@ -24,47 +24,25 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         this.accountMapper=accountMapper;
     }
     @Override
-    public UserEntity fromDtoToEntity(UserDto userDto) {
-        if(userDto==null){
+    public void fromDtoToEntity(UserDto userDto,UserEntity userEntity) {
+        if(userDto==null || userEntity==null){
             throw new MapperException("Unable to map from UserDto to UserEntity");
         }
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(userDto.getId());
         userEntity.setName(userDto.getName());
         userEntity.setSurname(userDto.getSurname());
         userEntity.setBirthDate(userDto.getBirthDate());
         userEntity.setPhone(userDto.getPhone());
-        AccountDto accountDto = userDto.getAccountDto();
-        AccountEntity accountEntity = accountMapper.fromDtoToEntity(accountDto);
-        userEntity.setAccount(accountEntity);
-        Set<RoleDto> roleDtos = userDto.getRoleDtos();
-        System.out.println(roleDtos);
-        for(RoleDto roleDto:roleDtos){
-            RoleEntity roleEntity = roleMapper.fromDtoToEntity(roleDto);
-            userEntity.addRole(roleEntity);
-        }
-        return userEntity;
     }
 
     @Override
-    public UserDto fromEntityToDto(UserEntity userEntity) {
-        if(userEntity==null){
+    public void fromEntityToDto(UserEntity userEntity,UserDto userDto) {
+        if(userEntity==null || userDto==null){
             throw new MapperException("Unable to map from UserEntity to UserDto");
         }
-        UserDto userDto = new UserDto();
         userDto.setId(userEntity.getId());
         userDto.setName(userEntity.getName());
         userDto.setSurname(userEntity.getSurname());
         userDto.setBirthDate(userEntity.getBirthDate());
         userDto.setPhone(userEntity.getPhone());
-        AccountEntity accountEntity = userEntity.getAccount();
-        AccountDto accountDto = accountMapper.fromEntityToDto(accountEntity);
-        userDto.setAccountDto(accountDto);
-        Set<RoleEntity> roleEntities = userEntity.getRoles();
-        for(RoleEntity roleEntity:roleEntities){
-            RoleDto roleDto = roleMapper.fromEntityToDto(roleEntity);
-            userDto.addRole(roleDto);
-        }
-        return userDto;
     }
 }

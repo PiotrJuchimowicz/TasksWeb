@@ -46,10 +46,9 @@ public abstract class AbstractServiceImpl<T extends AbstractEntity> implements A
     }
 
     @Override
-    public void delete(T object) {
-        if (!ifObjectExistsInDatabase(object))
-            throw new UnableToFindObjectException("Unable to find object " + object + " in database");
-        abstractRepository.deleteById(object.getId());
+    public void deleteById(Long id) {
+        read(id);
+        abstractRepository.deleteById(id);
     }
 
     @Override

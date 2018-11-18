@@ -1,0 +1,92 @@
+//Each user can have up to 3 roles and one account
+//Add user with account and roles
+//POST on /users
+{
+  "name":"Piotr",
+  "surname":"Kowalski",
+  "phone": "12456789",
+  "birthDate": "1996-08-28",
+  "accountDto": {
+    "email":"piotrkowalski@gmail.com",
+    "password":"password",
+    "verificationCode":"code",
+    "isaActive":true
+  },
+  "roleDtos": [
+    {
+      "roleName":"DEVELOPER"
+    },
+    {
+      "roleName":"TESTER"
+    }
+
+  ]
+}
+
+//update user
+//PUT on /users/
+//you must add user id to json
+//if you want to update existing property  add  id of property,
+//if you want to create new property don't add id of property
+//example:updating existing users with existing account and roles
+{
+  "id":1,
+  "name":"Michal",
+  "surname":"Juchimowicz",
+  "phone": "12456789",
+  "birthDate": "1996-08-28",
+  "accountDto": {
+    "id":1,
+    "email":"piotrunia@gmail.com",
+    "password":"password",
+    "verificationCode":"code",
+    "isaActive":true
+  },
+  "roleDtos": [
+    {
+      "id":1,
+      "roleName":"TESTER"
+    }
+  ]
+}
+
+{
+  //example: adding  new 1 role(without id) and updating 2 roles(each with role id) to existing user
+{
+  "id":1,
+  "name":"Michal",
+  "surname":"Juchimowicz",
+  "phone": "12456789",
+  "birthDate": "1996-08-28",
+  "accountDto": {
+    "id":1,
+    "email":"piotrunia@gmail.com",
+    "password":"password",
+    "verificationCode":"code",
+    "isaActive":true
+  },
+  "roleDtos": [
+    {
+      "id":1,
+      "roleName":"DEVELOPER"
+    },
+    {
+      "id":2,
+      "roleName":"MANAGER"
+    },
+    {
+      "roleName":"TESTER"
+    }
+  ]
+}
+
+//get all users
+//GET on /users
+
+//get one user
+//GET on /users/{id}
+
+//delete one user
+//DELETE on /users/{id}
+
+

@@ -111,10 +111,9 @@ class AccountRepositoryTest {
         userRepository.save(userEntity);
         UserEntity userFromDb = userRepository.findByAccount(accountEntity);
         assertAll(
-                () -> assertEquals(userFromDb.getAccount().getIsActive(), isActive),
+                () -> assertEquals(userFromDb.getAccount().isActive(), isActive),
                 () -> assertEquals(userFromDb.getAccount().getEmail(), email),
-                () -> assertEquals(userFromDb.getAccount().getPassword(), password),
-                () -> assertEquals(userFromDb.getAccount().getVerificationCode(), verificationCode)
+                () -> assertEquals(userFromDb.getAccount().getPassword(), password)
         );
         userRepository.delete(userEntity);
     }
@@ -207,15 +206,15 @@ class AccountRepositoryTest {
     void findActiveAccounts(){
         AccountEntity firstAccountEntity = new AccountEntity();
         firstAccountEntity.setEmail("first@gmail.com");
-        firstAccountEntity.setIsActive(true);
+        firstAccountEntity.setActive(true);
         accountRepository.save(firstAccountEntity);
         AccountEntity secondAccountEntity = new AccountEntity();
         secondAccountEntity.setEmail("second@gmail.com");
-        secondAccountEntity.setIsActive(false);
+        secondAccountEntity.setActive(false);
         accountRepository.save(secondAccountEntity);
         AccountEntity thirdAccountEntity= new AccountEntity();
         thirdAccountEntity.setEmail("third@gmail.com");
-        thirdAccountEntity.setIsActive(true);
+        thirdAccountEntity.setActive(true);
         accountRepository.save(thirdAccountEntity);
         List<AccountEntity> activeAccountEntities= accountRepository.findAccountEntitiesByIsActive(true);
         assertEquals(2, activeAccountEntities.size());
@@ -235,9 +234,8 @@ class AccountRepositoryTest {
     private void setAccountProperties(AccountEntity accountEntity) {
         if (accountEntity == null)
             return;
-        accountEntity.setVerificationCode(verificationCode);
         accountEntity.setEmail(email);
-        accountEntity.setIsActive(isActive);
+        accountEntity.setActive(isActive);
         accountEntity.setPassword(password);
     }
 }
