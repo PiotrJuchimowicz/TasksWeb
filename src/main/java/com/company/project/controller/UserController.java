@@ -18,6 +18,10 @@ import java.util.List;
 public class UserController extends AbstractController<UserEntity,UserDto> {
     @Autowired
     public UserController(AbstractMapper<UserEntity, UserDto> abstractMapper, AbstractService<UserEntity> abstractService) {
-        super(abstractMapper, abstractService);
+        super(abstractMapper, abstractService,LoggerFactory.getLogger(UserController.class));
+    }
+
+    private UserService getUserService(){
+        return (UserService) this.getAbstractService();
     }
 }

@@ -17,10 +17,11 @@ public abstract class AbstractController<T extends AbstractEntity, K extends Abs
     private Logger log;
 
 
-    protected AbstractController(AbstractMapper<T, K> abstractMapper, AbstractService<T> abstractService) {
+    protected AbstractController(AbstractMapper<T, K> abstractMapper, AbstractService<T> abstractService,
+                                 Logger log) {
         this.abstractMapper = abstractMapper;
         this.abstractService = abstractService;
-        this.log = LoggerFactory.getLogger(AbstractController.class);
+        this.log = log;
     }
 
     @PostMapping
@@ -75,5 +76,13 @@ public abstract class AbstractController<T extends AbstractEntity, K extends Abs
     public void deleteAll() {
         log.info("Deleting all objects");
         abstractService.deleteAll();
+    }
+
+    public AbstractService<T> getAbstractService() {
+        return abstractService;
+    }
+
+    public AbstractMapper<T, K> getAbstractMapper() {
+        return abstractMapper;
     }
 }

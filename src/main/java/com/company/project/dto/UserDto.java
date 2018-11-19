@@ -1,14 +1,13 @@
 package com.company.project.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +20,8 @@ public class UserDto extends AbstractDto {
     private String name;
     private String surname;
     private String phone;
-    private LocalDate birthDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd-HH-mm-ss")
+    private LocalDateTime birthDate;
     private AccountDto account;
     private List<RoleDto> roles;
 

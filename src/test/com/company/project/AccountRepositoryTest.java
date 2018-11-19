@@ -12,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +26,7 @@ class AccountRepositoryTest {
     String name = "Piotr";
     String surname = "Juchimowicz";
     String phone = "111 222 333";
-    LocalDate birthDate = LocalDate.of(1996, 3, 28);
+    LocalDateTime birthDate = LocalDateTime.now();
     String email = "email@gmail.com";
     String password = "password";
     String verificationCode = "verification code";

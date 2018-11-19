@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class UserEntity extends AbstractEntity {
     private String surname;
     private String phone;
     @Column(name = "birth_date")
-    private LocalDate birthDate;
+    private LocalDateTime birthDate;
     @ManyToOne
     @JoinColumn(name = "group_id")
     private GroupEntity group;

@@ -4,6 +4,7 @@ import com.company.project.dto.RoleDto;
 import com.company.project.mapper.AbstractMapper;
 import com.company.project.model.RoleEntity;
 import com.company.project.service.AbstractService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleController extends AbstractController<RoleEntity, RoleDto> {
     @Autowired
     public RoleController(AbstractMapper<RoleEntity, RoleDto> abstractMapper, AbstractService<RoleEntity> abstractService) {
-        super(abstractMapper, abstractService);
+        super(abstractMapper, abstractService, LoggerFactory.getLogger(RoleController.class));
     }
 }
