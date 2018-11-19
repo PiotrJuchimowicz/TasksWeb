@@ -1,5 +1,6 @@
 package com.company.project.service;
 
+import com.company.project.dto.AbstractDto;
 import com.company.project.model.AbstractEntity;
 
 
