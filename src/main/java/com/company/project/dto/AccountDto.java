@@ -11,6 +11,6 @@ import lombok.ToString;
 public class AccountDto extends AbstractDto {
     private String email;
     private String password;
+    private long userId;
     private boolean isActive;
-    private int userId;
 }

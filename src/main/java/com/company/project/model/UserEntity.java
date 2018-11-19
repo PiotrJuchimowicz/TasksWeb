@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "USER_T")
-@ToString(exclude = {"group", "tasks", "managedProjects", "account", "roles", "createdConversations"}, callSuper = true)
+@ToString(exclude = {"group", "tasks", "managedProjects", "account", "roles"}, callSuper = true)
 @Getter
 @Setter
 public class UserEntity extends AbstractEntity {
@@ -39,10 +39,6 @@ public class UserEntity extends AbstractEntity {
     //eager because one user can have only up to 3 roles
     @OrderBy("id")
     private Set<RoleEntity> roles = new LinkedHashSet<>();
-    @OneToMany(mappedBy = "creator", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @OrderBy("id")
-    private Set<ConversationEntity> createdConversations = new LinkedHashSet<>();
 
     public UserEntity() {
     }
@@ -55,16 +51,6 @@ public class UserEntity extends AbstractEntity {
     public void removeRole(RoleEntity roleEntity) {
         this.roles.remove(roleEntity);
         roleEntity.setUser(null);
-    }
-
-    public void addConversation(ConversationEntity conversationEntity) {
-        this.createdConversations.add(conversationEntity);
-        conversationEntity.setCreator(this);
-    }
-
-    public void removeConversation(ConversationEntity conversationEntity) {
-        this.createdConversations.remove(conversationEntity);
-        conversationEntity.setCreator(null);
     }
 
     public void addToManagedProjects(ProjectEntity projectEntity) {

@@ -3,28 +3,45 @@ package com.company.project.mapper;
 import com.company.project.dto.AccountDto;
 import com.company.project.exception.MapperException;
 import com.company.project.model.AccountEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> {
+
     @Override
-    public void fromDtoToEntity(AccountDto accountDto,AccountEntity accountEntity) {
-        if(accountDto==null || accountEntity==null){
-            throw new MapperException("Unable to map from AccountDto to AccountEntity");
+    public void fromDtoToExistingEntity(AccountDto dto, AccountEntity entity) {
+        if (dto == null || entity == null) {
+            throw new MapperException("Unable to map from AccountDto to existing AccountEntity");
         }
-        accountEntity.setEmail(accountDto.getEmail());
-        accountEntity.setActive(accountDto.isActive());
-        accountEntity.setPassword(accountDto.getPassword());
+        entity.setEmail(dto.getEmail());
+        entity.setActive(dto.isActive());
+        entity.setPassword(dto.getPassword());
     }
 
     @Override
-    public void fromEntityToDto(AccountEntity accountEntity,AccountDto accountDto) {
-        if(accountEntity==null || accountDto==null){
+    public AccountEntity fromDtoToNewEntity(AccountDto dto) {
+        if(dto == null){
+            throw new MapperException("Unable to map from AccountDto to new AccountEntity");
+        }
+        AccountEntity entity = new AccountEntity();
+        entity.setEmail(dto.getEmail());
+        entity.setPassword(dto.getPassword());
+        entity.setActive(dto.isActive());
+        return entity;
+    }
+
+    @Override
+    public AccountDto fromEntityToNewDto(AccountEntity accountEntity) {
+        if (accountEntity == null) {
             throw new MapperException("Unable to map from AccountEntity to AccountDto");
         }
-        accountDto.setId(accountEntity.getId());
-        accountDto.setEmail(accountEntity.getEmail());
-        accountDto.setActive(accountEntity.isActive());
-        accountDto.setPassword(accountEntity.getPassword());
+        AccountDto dto = new AccountDto();
+        dto.setId(accountEntity.getId());
+        dto.setEmail(accountEntity.getEmail());
+        dto.setActive(accountEntity.isActive());
+        dto.setPassword(accountEntity.getPassword());
+        dto.setUserId(accountEntity.getUser().getId());
+        return dto;
     }
 }

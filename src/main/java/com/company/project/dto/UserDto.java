@@ -22,4 +22,10 @@ public class UserDto extends AbstractDto {
     private String surname;
     private String phone;
     private LocalDate birthDate;
+    private AccountDto account;
+    private List<RoleDto> roles;
+
+    public void addRole(RoleDto roleDto){
+        roles.add(roleDto);
+    }
 }

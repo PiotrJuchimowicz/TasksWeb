@@ -8,5 +8,5 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = false)
 public class RoleDto extends AbstractDto {
     private String roleName;
-    private int userId;
+    private long userId;
 }

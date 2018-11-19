@@ -1,3 +1,4 @@
+/*
 package com.company.project.mapper;
 
 import com.company.project.dto.ConversationDto;
@@ -38,3 +39,4 @@ public class ConversationMapper implements AbstractMapper<ConversationEntity, Co
         return localDateTime;
     }
 }
+*/

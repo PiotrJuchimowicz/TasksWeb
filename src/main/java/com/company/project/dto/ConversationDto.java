@@ -1,3 +1,4 @@
+/*
 package com.company.project.dto;
 
 import lombok.Getter;
@@ -19,3 +20,4 @@ public class ConversationDto extends AbstractDto {
     int second;
     private Long creatorId;
 }
+*/

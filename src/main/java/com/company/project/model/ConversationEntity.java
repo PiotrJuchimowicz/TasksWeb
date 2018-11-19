@@ -15,15 +15,12 @@ import java.util.Set;
 @Table(name = "CONVERSATION_T")
 @Getter
 @Setter
-@ToString(exclude = {"creator","messages"},callSuper = true)
+@ToString(exclude = {"messages"},callSuper = true)
 public class ConversationEntity extends AbstractEntity {
     private String title;
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST},
-               fetch = FetchType.EAGER)
-    @JoinColumn(name = "creator_id")
-    private UserEntity creator;
+
     @OneToMany(mappedBy = "conversation",
                cascade = {CascadeType.ALL},orphanRemoval = true,fetch = FetchType.LAZY)
     @OrderBy("id")
