@@ -22,6 +22,13 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements 
     }
 
     @Override
+    public UserEntity create(UserEntity object) {
+        String passwordHash = String.valueOf(object.getAccount().getPassword().hashCode());
+        object.getAccount().setPassword(passwordHash);
+        return super.create(object);
+    }
+
+    @Override
     public UserEntity findByEmail(String email) {
         return  getUserRepository().findByEmail(email);
     }
