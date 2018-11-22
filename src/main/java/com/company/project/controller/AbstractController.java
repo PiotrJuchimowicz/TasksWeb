@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-@CrossOrigin(origins = "http://localhost:4200")
+
 public abstract class AbstractController<T extends AbstractEntity, K extends AbstractDto> {
     private AbstractMapper<T, K> abstractMapper;
     private AbstractService<T> abstractService;

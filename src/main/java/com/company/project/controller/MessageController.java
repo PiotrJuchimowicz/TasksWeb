@@ -6,11 +6,13 @@ import com.company.project.model.MessageEntity;
 import com.company.project.service.AbstractService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/messages")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MessageController extends AbstractController<MessageEntity, MessageDto> {
     @Autowired
     public MessageController(AbstractMapper<MessageEntity, MessageDto> abstractMapper, AbstractService<MessageEntity> abstractService) {

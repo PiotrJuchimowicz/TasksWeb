@@ -6,11 +6,13 @@ import com.company.project.model.AccountEntity;
 import com.company.project.service.AbstractService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/accounts")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AccountController extends AbstractController<AccountEntity, AccountDto> {
     @Autowired
     public AccountController(AbstractMapper<AccountEntity, AccountDto> abstractMapper, AbstractService<AccountEntity> abstractService) {
