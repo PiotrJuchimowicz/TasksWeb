@@ -14,7 +14,6 @@ import java.util.Objects;
 @Setter
 @ToString(exclude = {"sender", "recipient", "conversation"}, callSuper = true)
 public class MessageEntity extends AbstractEntity {
-    private String subject;
     private String body;
     @Column(name = "post_date")
     private LocalDateTime postDate;
@@ -39,13 +38,12 @@ public class MessageEntity extends AbstractEntity {
         MessageEntity that = (MessageEntity) o;
         return
                 Objects.equals(this.getId(), that.getId()) &&
-                        Objects.equals(subject, that.subject) &&
                         Objects.equals(body, that.body) &&
                         Objects.equals(postDate, that.postDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subject, body, postDate, this.getId());
+        return Objects.hash( body, postDate, this.getId());
     }
 }
