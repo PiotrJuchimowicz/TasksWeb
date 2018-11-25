@@ -87,4 +87,6 @@ public abstract class AbstractController<T extends AbstractEntity, K extends Abs
     public AbstractMapper<T, K> getAbstractMapper() {
         return abstractMapper;
     }
+
+    public Logger getLogger(){return log;}
 }
