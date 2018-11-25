@@ -11,14 +11,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class MessageDto extends AbstractDto {
-    String subject;
     String body;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd-HH-mm-ss")
     LocalDateTime postDate;
     //in json property name is: read
     private boolean isRead;
     private Long senderId;
-    private Long recipientId;
+    private String recipientEmail;
     private Long conversationId;
 
 }

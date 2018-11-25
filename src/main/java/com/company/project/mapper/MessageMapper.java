@@ -26,7 +26,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
             throw new MapperException("Unable to map from MessageDto to existing MessageEntity");
         }
         UserEntity recipientEntity,senderEntity;
-        recipientEntity = userService.read(messageDto.getRecipientId());
+        recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
         senderEntity = userService.read(messageDto.getSenderId());
         messageEntity.setSender(senderEntity);
         messageEntity.setRecipient(recipientEntity);
@@ -43,7 +43,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
             throw new MapperException("Unable to map from MessageDto to new MessageEntity");
         }
         UserEntity recipientEntity,senderEntity;
-        recipientEntity = userService.read(messageDto.getRecipientId());
+        recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
         senderEntity = userService.read(messageDto.getSenderId());
         MessageEntity messageEntity = new MessageEntity();
         messageEntity.setSender(senderEntity);
@@ -67,7 +67,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         messageDto.setRead(messageEntity.isRead());
         messageDto.setPostDate(messageEntity.getPostDate());
         messageDto.setConversationId(messageEntity.getConversation().getId());
-        messageDto.setRecipientId(messageEntity.getRecipient().getId());
+        messageDto.setRecipientEmail(messageEntity.getRecipient().getAccount().getEmail());
         messageDto.setSenderId(messageEntity.getSender().getId());
         return messageDto;
     }
