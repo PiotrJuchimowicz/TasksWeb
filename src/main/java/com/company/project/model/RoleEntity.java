@@ -21,8 +21,7 @@ public class RoleEntity extends AbstractEntity {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role_name",nullable = false)
     private Role roleValue;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH,
-                          CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 

@@ -34,18 +34,28 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         userEntity.setSurname(userDto.getSurname());
         userEntity.setPhone(userDto.getPhone());
         AccountDto accountDto = userDto.getAccount();
-        if(accountDto!=null) {
+        if (accountDto != null) {
             AccountEntity accountEntity = accountMapper.fromDtoToNewEntity(accountDto);
             accountEntity.addUser(userEntity);
         }
 
         List<RoleDto> roleDtos = userDto.getRoles();
-        if(roleDtos!=null && !roleDtos.isEmpty())
-        for (RoleDto roleDto : roleDtos) {
-            RoleEntity roleEntity = roleMapper.fromDtoToNewEntity(roleDto);
-            roleEntity.setUser(userEntity);
-            userEntity.addRole(roleEntity);
+        if (roleDtos != null && !roleDtos.isEmpty()) {
+
+            for (RoleDto roleDto : roleDtos) {
+               if(roleDto.getId()!=null && ifRoleAlreadyExists(userEntity,roleDto)){
+                   updateRole(userEntity,roleDto);
+               }
+               else {
+                   RoleEntity roleEntity = roleMapper.fromDtoToNewEntity(roleDto);
+                   roleEntity.setUser(userEntity);
+                   userEntity.addRole(roleEntity);
+               }
+            }
         }
+        System.out.println(userEntity);
+        System.out.println(userEntity.getAccount());
+        System.out.println(userEntity.getRoles());
     }
 
     @Override
@@ -70,7 +80,7 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
 
     @Override
     public UserDto fromEntityToNewDto(UserEntity userEntity) {
-        if(userEntity == null){
+        if (userEntity == null) {
             throw new MapperException("Unable to map from UserEntity to UserDto");
         }
         UserDto userDto = new UserDto();
@@ -82,11 +92,30 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         AccountDto accountDto = accountMapper.fromEntityToNewDto(accountEntity);
         userDto.setAccount(accountDto);
         Set<RoleEntity> roleEntities = userEntity.getRoles();
-        userDto.setRoles(new LinkedList<>());//do poprawy moze sie uda od razu
-        for(RoleEntity roleEntity: roleEntities){
+        userDto.setRoles(new LinkedList<>());
+        for (RoleEntity roleEntity : roleEntities) {
             RoleDto roleDto = roleMapper.fromEntityToNewDto(roleEntity);
             userDto.addRole(roleDto);
         }
         return userDto;
+    }
+
+    private void updateRole(UserEntity userEntity, RoleDto roleDto){
+        Set<RoleEntity> roles = userEntity.getRoles();
+        Long roleId = roleDto.getId();
+        for(RoleEntity role: roles){
+            if(role.getId().equals(roleId)){
+                role.setRoleValue(RoleEntity.Role.valueOf(roleDto.getRoleName()));
+            }
+        }
+
+    }
+
+    private boolean ifRoleAlreadyExists(UserEntity userEntity,RoleDto roleDto){
+        for(RoleEntity roleEntity:userEntity.getRoles()){
+            if(roleEntity.getId().equals(roleDto.getId()))
+                return true;
+        }
+        return false;
     }
 }

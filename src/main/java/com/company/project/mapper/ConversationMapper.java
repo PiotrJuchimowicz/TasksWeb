@@ -12,6 +12,8 @@ public class ConversationMapper implements AbstractMapper<ConversationEntity, Co
         if(dto==null || entity==null){
             throw new MapperException("Unable to map from ConversationDto to existing ConversationEntity");
         }
+        if (dto.getId()!=null)
+        entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
         entity.setCreationDate(dto.getCreationDate());
     }
@@ -22,6 +24,8 @@ public class ConversationMapper implements AbstractMapper<ConversationEntity, Co
             throw new MapperException("Unable to map from ConversationDto to new ConversationEntity");
         }
         ConversationEntity entity = new ConversationEntity();
+        if (dto.getId()!=null)
+            entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
         entity.setCreationDate(dto.getCreationDate());
         return entity;

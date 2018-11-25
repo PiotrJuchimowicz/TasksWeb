@@ -3,7 +3,6 @@ package com.company.project.mapper;
 import com.company.project.dto.RoleDto;
 import com.company.project.exception.MapperException;
 import com.company.project.model.RoleEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,6 +13,8 @@ public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
             throw new MapperException("Unable to map from RoleDto to existing RoleEntity");
         }
         RoleEntity.Role roleValue = RoleEntity.Role.valueOf(dto.getRoleName());
+        if (dto.getId() != null)
+            entity.setId(dto.getId());
         entity.setRoleValue(roleValue);
     }
 
@@ -24,6 +25,8 @@ public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
         }
         RoleEntity entity = new RoleEntity();
         RoleEntity.Role roleValue = RoleEntity.Role.valueOf(dto.getRoleName());
+        if (dto.getId() != null)
+            entity.setId(dto.getId());
         entity.setRoleValue(roleValue);
         return entity;
     }

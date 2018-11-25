@@ -21,10 +21,10 @@ public class MessageServiceImpl extends AbstractServiceImpl<MessageEntity> imple
 
     @Override
     public List<MessageEntity> findMessageEntitiesByRecipientAndRead(Long recipientId,boolean read) {
-        return  getMessageService().findMessageEntitiesByRecipientIdAndIsRead(recipientId,read);
+        return  getMessageRepository().findMessageEntitiesByRecipientIdAndIsRead(recipientId,read);
     }
 
-    private MessageRepository getMessageService(){
+    private MessageRepository getMessageRepository(){
         return (MessageRepository) this.getAbstractRepository();
     }
 }

@@ -3,7 +3,6 @@ package com.company.project.mapper;
 import com.company.project.dto.AccountDto;
 import com.company.project.exception.MapperException;
 import com.company.project.model.AccountEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,6 +13,8 @@ public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> 
         if (dto == null || entity == null) {
             throw new MapperException("Unable to map from AccountDto to existing AccountEntity");
         }
+        if (dto.getId() != null)
+            entity.setId(dto.getId());
         entity.setEmail(dto.getEmail());
         entity.setActive(dto.isActive());
         entity.setPassword(dto.getPassword());
@@ -21,10 +22,12 @@ public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> 
 
     @Override
     public AccountEntity fromDtoToNewEntity(AccountDto dto) {
-        if(dto == null){
+        if (dto == null) {
             throw new MapperException("Unable to map from AccountDto to new AccountEntity");
         }
         AccountEntity entity = new AccountEntity();
+        if (dto.getId() != null)
+            entity.setId(dto.getId());
         entity.setEmail(dto.getEmail());
         entity.setPassword(dto.getPassword());
         entity.setActive(dto.isActive());

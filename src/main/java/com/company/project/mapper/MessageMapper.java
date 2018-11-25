@@ -28,6 +28,8 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         UserEntity recipientEntity,senderEntity;
         recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
         senderEntity = userService.read(messageDto.getSenderId());
+        if (messageDto.getId()!=null)
+        messageEntity.setId(messageDto.getId());
         messageEntity.setSender(senderEntity);
         messageEntity.setRecipient(recipientEntity);
         ConversationEntity conversationEntity = conversationService.read(messageDto.getConversationId());
@@ -46,6 +48,8 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
         senderEntity = userService.read(messageDto.getSenderId());
         MessageEntity messageEntity = new MessageEntity();
+        if (messageDto.getId()!=null)
+            messageEntity.setId(messageDto.getId());
         messageEntity.setSender(senderEntity);
         messageEntity.setRecipient(recipientEntity);
         ConversationEntity conversationEntity = conversationService.read(messageDto.getConversationId());
