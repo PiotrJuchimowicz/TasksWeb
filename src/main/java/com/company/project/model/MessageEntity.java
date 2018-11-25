@@ -15,6 +15,7 @@ import java.util.Objects;
 @ToString(exclude = {"sender", "recipient", "conversation"}, callSuper = true)
 public class MessageEntity extends AbstractEntity {
     private String body;
+    private boolean isRead;
     @Column(name = "post_date")
     private LocalDateTime postDate;
     @ManyToOne(cascade = {CascadeType.DETACH,
@@ -39,11 +40,12 @@ public class MessageEntity extends AbstractEntity {
         return
                 Objects.equals(this.getId(), that.getId()) &&
                         Objects.equals(body, that.body) &&
+                        Objects.equals(isRead, that.isRead) &&
                         Objects.equals(postDate, that.postDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash( body, postDate, this.getId());
+        return Objects.hash(body, postDate, isRead, this.getId());
     }
 }

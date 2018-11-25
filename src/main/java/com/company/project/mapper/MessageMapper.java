@@ -33,6 +33,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         ConversationEntity conversationEntity = conversationService.read(messageDto.getConversationId());
         messageEntity.setConversation(conversationEntity);
         messageEntity.setBody(messageDto.getBody());
+        messageEntity.setRead(messageDto.isRead());
         messageEntity.setPostDate(messageDto.getPostDate());
     }
 
@@ -50,6 +51,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         ConversationEntity conversationEntity = conversationService.read(messageDto.getConversationId());
         messageEntity.setConversation(conversationEntity);
         messageEntity.setBody(messageDto.getBody());
+        messageEntity.setRead(messageDto.isRead());
         messageEntity.setPostDate(messageDto.getPostDate());
         return messageEntity;
     }
@@ -62,6 +64,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         MessageDto messageDto = new MessageDto();
         messageDto.setId(messageEntity.getId());
         messageDto.setBody(messageEntity.getBody());
+        messageDto.setRead(messageEntity.isRead());
         messageDto.setPostDate(messageEntity.getPostDate());
         messageDto.setConversationId(messageEntity.getConversation().getId());
         messageDto.setRecipientId(messageEntity.getRecipient().getId());
