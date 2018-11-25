@@ -26,7 +26,6 @@ class AccountRepositoryTest {
     String name = "Piotr";
     String surname = "Juchimowicz";
     String phone = "111 222 333";
-    LocalDateTime birthDate = LocalDateTime.now();
     String email = "email@gmail.com";
     String password = "password";
     String verificationCode = "verification code";
@@ -60,8 +59,7 @@ class AccountRepositoryTest {
         assertAll(
                 () -> assertEquals(resultFromDb.get(0).getName(), name),
                 () -> assertEquals(resultFromDb.get(0).getSurname(), surname),
-                () -> assertEquals(resultFromDb.get(0).getPhone(), phone),
-                () -> assertEquals(resultFromDb.get(0).getBirthDate(), birthDate)
+                () -> assertEquals(resultFromDb.get(0).getPhone(), phone)
         );
         userRepository.delete(userEntity);
     }
@@ -129,7 +127,6 @@ class AccountRepositoryTest {
         userEntity.setAccount(accountEntity);
         accountRepository.save(accountEntity);
         assertAll(
-                () -> assertEquals(accountEntity.getUser().getBirthDate(), birthDate),
                 () -> assertEquals(accountEntity.getUser().getName(), name),
                 () -> assertEquals(accountEntity.getUser().getSurname(), surname),
                 () -> assertEquals(accountEntity.getUser().getPhone(), phone)
@@ -228,7 +225,6 @@ class AccountRepositoryTest {
             return;
         userEntity.setName(name);
         userEntity.setSurname(surname);
-        userEntity.setBirthDate(birthDate);
         userEntity.setPhone(phone);
     }
 

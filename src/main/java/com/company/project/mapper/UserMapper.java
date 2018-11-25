@@ -33,7 +33,6 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         userEntity.setName(userDto.getName());
         userEntity.setSurname(userDto.getSurname());
         userEntity.setPhone(userDto.getPhone());
-        userEntity.setBirthDate(userDto.getBirthDate());
         AccountDto accountDto = userDto.getAccount();
         if(accountDto!=null) {
             AccountEntity accountEntity = accountMapper.fromDtoToNewEntity(accountDto);
@@ -58,7 +57,6 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         userEntity.setName(dto.getName());
         userEntity.setSurname(dto.getSurname());
         userEntity.setPhone(dto.getPhone());
-        userEntity.setBirthDate(dto.getBirthDate());
         AccountEntity accountEntity = accountMapper.fromDtoToNewEntity(dto.getAccount());
         accountEntity.addUser(userEntity);
         List<RoleDto> roleDtos = dto.getRoles();
@@ -80,7 +78,6 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         userDto.setName(userEntity.getName());
         userDto.setSurname(userEntity.getSurname());
         userDto.setPhone(userEntity.getPhone());
-        userDto.setBirthDate(userEntity.getBirthDate());
         AccountEntity accountEntity = userEntity.getAccount();
         AccountDto accountDto = accountMapper.fromEntityToNewDto(accountEntity);
         userDto.setAccount(accountDto);

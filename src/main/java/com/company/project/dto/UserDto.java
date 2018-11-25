@@ -20,8 +20,6 @@ public class UserDto extends AbstractDto {
     private String name;
     private String surname;
     private String phone;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd-HH-mm-ss")
-    private LocalDateTime birthDate;
     private AccountDto account;
     private List<RoleDto> roles;
 

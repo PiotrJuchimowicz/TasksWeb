@@ -5,8 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -20,8 +18,6 @@ public class UserEntity extends AbstractEntity {
     private String name;
     private String surname;
     private String phone;
-    @Column(name = "birth_date")
-    private LocalDateTime birthDate;
     @ManyToOne
     @JoinColumn(name = "group_id")
     private GroupEntity group;
@@ -70,16 +66,15 @@ public class UserEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof UserEntity)) return false;
         UserEntity that = (UserEntity) o;
-        return  Objects.equals(this.getId(),that.getId()) &&
+        return Objects.equals(this.getId(), that.getId()) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(surname, that.surname) &&
-                Objects.equals(phone, that.phone) &&
-                Objects.equals(birthDate, that.birthDate);
+                Objects.equals(phone, that.phone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, phone, birthDate,this.getId());
+        return Objects.hash(name, surname, phone, this.getId());
 
     }
 }
