@@ -18,8 +18,7 @@ public class AccountEntity extends AbstractEntity {
     private String password;
     @Column(name = "is_active")
     private boolean isActive = false;
-    @OneToOne(mappedBy = "account", cascade = {CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.DETACH, CascadeType.REFRESH,CascadeType.REMOVE},fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "account",fetch = FetchType.EAGER)
     private UserEntity user;
 
     public void addUser(UserEntity userEntity){

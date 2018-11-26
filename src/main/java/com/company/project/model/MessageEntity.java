@@ -15,19 +15,17 @@ import java.util.Objects;
 @ToString(exclude = {"sender", "recipient", "conversation"}, callSuper = true)
 public class MessageEntity extends AbstractEntity {
     private String body;
-    private boolean isRead;
+    @Column(name = "is_read")
+    private boolean isRead = false;
     @Column(name = "post_date")
     private LocalDateTime postDate;
-    @ManyToOne(cascade = {CascadeType.DETACH,
-            CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")
     private UserEntity sender;
-    @ManyToOne(cascade = {CascadeType.DETACH,
-            CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipient_id")
     private UserEntity recipient;
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "conversation_id")
     private ConversationEntity conversation;
 
