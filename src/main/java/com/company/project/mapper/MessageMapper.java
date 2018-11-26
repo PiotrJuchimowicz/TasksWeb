@@ -2,6 +2,7 @@ package com.company.project.mapper;
 
 import com.company.project.dto.MessageDto;
 import com.company.project.exception.MapperException;
+import com.company.project.exception.UnableToFindUserWithEmail;
 import com.company.project.model.ConversationEntity;
 import com.company.project.model.MessageEntity;
 import com.company.project.model.UserEntity;
@@ -27,6 +28,9 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         }
         UserEntity recipientEntity,senderEntity;
         recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
+        if(recipientEntity== null){
+            throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
+        }
         senderEntity = userService.read(messageDto.getSenderId());
         if (messageDto.getId()!=null)
         messageEntity.setId(messageDto.getId());
@@ -46,6 +50,9 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         }
         UserEntity recipientEntity,senderEntity;
         recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
+        if(recipientEntity== null){
+            throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
+        }
         senderEntity = userService.read(messageDto.getSenderId());
         MessageEntity messageEntity = new MessageEntity();
         if (messageDto.getId()!=null)

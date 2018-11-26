@@ -46,6 +46,19 @@ public class ConversationController extends AbstractController<ConversationEntit
         return conversationDto;
     }
 
+    @GetMapping("/sortedConversations/{userId}")
+    public List<ConversationDto> getSortedConversations(@PathVariable("userId") Long userId){
+        Logger log = this.getLogger();
+        log.info("Getting sorted conversations by userId:" + userId);
+        List<ConversationEntity> sortedConversations= getConversationService().findSortedConversationsByLastMessage(userId);
+        List<ConversationDto> sortedDtos = new LinkedList<>();
+        for(ConversationEntity conversationEntity: sortedConversations){
+            ConversationDto dto = this.getAbstractMapper().fromEntityToNewDto(conversationEntity);
+            sortedDtos.add(dto);
+        }
+        return sortedDtos;
+    }
+
 
     private ConversationService getConversationService(){
         return (ConversationService) this.getAbstractService();

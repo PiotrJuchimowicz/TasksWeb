@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends AbstractRepository<UserEntity> {
-    @Query("SELECT userEntity FROM UserEntity userEntity JOIN userEntity.account accountEntity WHERE accountEntity.email=:email")
+    @Query("SELECT userEntity FROM UserEntity userEntity JOIN FETCH userEntity.account accountEntity WHERE accountEntity.email=:email")
     UserEntity findByEmail(@Param("email") String email);
     List<UserEntity> findAllBySurname(String surname);
     UserEntity findByAccount(AccountEntity accountEntity);
