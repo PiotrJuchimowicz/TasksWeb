@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ConversationService extends AbstractService<ConversationEntity> {
     ConversationEntity getConversationWithSortedMessages(Long conversationId);
+
     List<ConversationEntity> findSortedConversationsByLastMessage(Long userId);
 }

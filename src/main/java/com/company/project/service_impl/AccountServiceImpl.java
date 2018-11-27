@@ -16,7 +16,7 @@ import java.util.List;
 @Transactional
 public class AccountServiceImpl extends AbstractServiceImpl<AccountEntity> implements AccountService {
     @Autowired
-    public AccountServiceImpl(AbstractRepository<AccountEntity> abstractRepository){
+    public AccountServiceImpl(AbstractRepository<AccountEntity> abstractRepository) {
         super(abstractRepository);
     }
 
@@ -42,7 +42,7 @@ public class AccountServiceImpl extends AbstractServiceImpl<AccountEntity> imple
         return getAccountRepository().findAccountEntitiesByIsActive(isActive);
     }
 
-    private AccountRepository getAccountRepository(){
-        return (AccountRepository)this.getAbstractRepository();
+    private AccountRepository getAccountRepository() {
+        return (AccountRepository) this.getAbstractRepository();
     }
 }

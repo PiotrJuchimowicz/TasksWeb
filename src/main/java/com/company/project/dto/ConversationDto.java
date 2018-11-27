@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 @ToString(callSuper = true)
@@ -15,6 +16,10 @@ public class ConversationDto extends AbstractDto {
     private String title;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime creationDate;
-    private List<MessageDto> messages;
+    private List<MessageDto> messages = new LinkedList<>();
+
+    public void addMessage(MessageDto messageDto){
+        messages.add(messageDto);
+    }
 
 }

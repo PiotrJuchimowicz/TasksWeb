@@ -25,7 +25,7 @@ public class MessageEntity extends AbstractEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipient_id")
     private UserEntity recipient;
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "conversation_id")
     private ConversationEntity conversation;
 

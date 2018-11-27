@@ -4,7 +4,7 @@ import com.company.project.dto.AbstractDto;
 import com.company.project.model.AbstractEntity;
 
 
-public interface  AbstractMapper<T extends AbstractEntity, K extends AbstractDto> {
+public interface AbstractMapper<T extends AbstractEntity, K extends AbstractDto> {
 
     public abstract void fromDtoToExistingEntity(K dto, T entity);
 

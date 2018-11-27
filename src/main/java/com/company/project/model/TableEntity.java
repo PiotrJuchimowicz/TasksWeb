@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Entity
@@ -27,12 +30,12 @@ public class TableEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof TableEntity)) return false;
         TableEntity that = (TableEntity) o;
-        return  Objects.equals(this.getId(),that.getId()) &&
+        return Objects.equals(this.getId(), that.getId()) &&
                 Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name,this.getId());
+        return Objects.hash(name, this.getId());
     }
 }

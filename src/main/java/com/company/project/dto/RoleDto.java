@@ -1,6 +1,9 @@
 package com.company.project.dto;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @ToString(callSuper = true)
 @Getter

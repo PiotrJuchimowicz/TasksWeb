@@ -2,7 +2,6 @@ package com.company.project.controller;
 
 import com.company.project.dto.MessageDto;
 import com.company.project.mapper.AbstractMapper;
-import com.company.project.mapper.MessageMapper;
 import com.company.project.model.MessageEntity;
 import com.company.project.service.AbstractService;
 import com.company.project.service.MessageService;
@@ -25,19 +24,26 @@ public class MessageController extends AbstractController<MessageEntity, Message
 
     @GetMapping("/byRead")
     public List<MessageDto> getUserMessagesByRead(@RequestParam("recipientId") Long recipientId,
-                                                  @RequestParam("read")Boolean isRead){
+                                                  @RequestParam("read") Boolean isRead) {
         Logger log = this.getLogger();
         log.info("Getting messages with property read: " + isRead + " and property recipientId: " + recipientId);
-        List<MessageEntity> messageEntities = getMessageService().findMessageEntitiesByRecipientAndRead(recipientId,isRead);
+        List<MessageEntity> messageEntities = getMessageService().findMessageEntitiesByRecipientAndRead(recipientId, isRead);
         List<MessageDto> messageDtos = new LinkedList<>();
-        for(MessageEntity messageEntity : messageEntities){
+        for (MessageEntity messageEntity : messageEntities) {
             MessageDto messageDto = this.getAbstractMapper().fromEntityToNewDto(messageEntity);
             messageDtos.add(messageDto);
         }
         return messageDtos;
     }
 
-    private MessageService getMessageService(){
-        return (MessageService)this.getAbstractService();
+
+
+    @Override
+    public void deleteOne(Long id) {
+        throw new UnsupportedOperationException("Operation is not supprted");
+    }
+
+    private MessageService getMessageService() {
+        return (MessageService) this.getAbstractService();
     }
 }

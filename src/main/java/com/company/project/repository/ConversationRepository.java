@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ConversationRepository extends AbstractRepository<ConversationEntity> {
-//TODO -fix performance
+    //TODO -fix performance
     @Query("SELECT DISTINCT messageEntity.conversation " +
             "FROM MessageEntity messageEntity " +
             "WHERE (messageEntity.sender.id=:userId OR  messageEntity.recipient.id=:userId) ")

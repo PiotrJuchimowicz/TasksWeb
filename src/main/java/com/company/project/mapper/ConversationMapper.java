@@ -9,22 +9,22 @@ import org.springframework.stereotype.Component;
 public class ConversationMapper implements AbstractMapper<ConversationEntity, ConversationDto> {
     @Override
     public void fromDtoToExistingEntity(ConversationDto dto, ConversationEntity entity) {
-        if(dto==null || entity==null){
+        if (dto == null || entity == null) {
             throw new MapperException("Unable to map from ConversationDto to existing ConversationEntity");
         }
-        if (dto.getId()!=null)
-        entity.setId(dto.getId());
+        if (dto.getId() != null)
+            entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
         entity.setCreationDate(dto.getCreationDate());
     }
 
     @Override
     public ConversationEntity fromDtoToNewEntity(ConversationDto dto) {
-        if(dto==null){
+        if (dto == null) {
             throw new MapperException("Unable to map from ConversationDto to new ConversationEntity");
         }
         ConversationEntity entity = new ConversationEntity();
-        if (dto.getId()!=null)
+        if (dto.getId() != null)
             entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
         entity.setCreationDate(dto.getCreationDate());
@@ -33,7 +33,7 @@ public class ConversationMapper implements AbstractMapper<ConversationEntity, Co
 
     @Override
     public ConversationDto fromEntityToNewDto(ConversationEntity entity) {
-        if(entity==null){
+        if (entity == null) {
             throw new MapperException("Unable to map from ConversationEntity to ConversationDto");
         }
         ConversationDto dto = new ConversationDto();

@@ -13,9 +13,12 @@ import java.util.List;
 public interface UserRepository extends AbstractRepository<UserEntity> {
     @Query("SELECT userEntity FROM UserEntity userEntity JOIN FETCH userEntity.account accountEntity WHERE accountEntity.email=:email")
     UserEntity findByEmail(@Param("email") String email);
+
     List<UserEntity> findAllBySurname(String surname);
+
     UserEntity findByAccount(AccountEntity accountEntity);
+
     //finds users with specific role
     @Query("SELECT userEntity  FROM RoleEntity roleEntity JOIN roleEntity.user userEntity WHERE roleEntity.roleValue=:roleValue")
-    List<UserEntity> findAllByRole(@Param("roleValue")RoleEntity.Role roleValue);
+    List<UserEntity> findAllByRole(@Param("roleValue") RoleEntity.Role roleValue);
 }

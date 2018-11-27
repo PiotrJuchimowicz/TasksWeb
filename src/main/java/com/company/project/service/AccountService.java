@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface AccountService extends AbstractService<AccountEntity> {
     AccountEntity findByEmail(String email);
+
     AccountEntity findByUser(UserEntity userEntity);
+
     List<AccountEntity> findAccountEntitiesByActive(Boolean isActive);
 }

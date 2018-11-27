@@ -18,4 +18,9 @@ public class RoleController extends AbstractController<RoleEntity, RoleDto> {
     public RoleController(AbstractMapper<RoleEntity, RoleDto> abstractMapper, AbstractService<RoleEntity> abstractService) {
         super(abstractMapper, abstractService, LoggerFactory.getLogger(RoleController.class));
     }
+
+    @Override
+    public RoleDto update(Long id, RoleDto dto) {
+        throw new UnsupportedOperationException("This operation is not supported");
+    }
 }

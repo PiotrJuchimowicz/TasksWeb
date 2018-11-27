@@ -5,12 +5,10 @@ import com.company.project.mapper.AbstractMapper;
 import com.company.project.model.AbstractEntity;
 import com.company.project.service.AbstractService;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
-
 
 
 public abstract class AbstractController<T extends AbstractEntity, K extends AbstractDto> {
@@ -88,5 +86,7 @@ public abstract class AbstractController<T extends AbstractEntity, K extends Abs
         return abstractMapper;
     }
 
-    public Logger getLogger(){return log;}
+    public Logger getLogger() {
+        return log;
+    }
 }

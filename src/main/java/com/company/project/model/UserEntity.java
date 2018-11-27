@@ -22,18 +22,18 @@ public class UserEntity extends AbstractEntity {
     @JoinColumn(name = "group_id")
     private GroupEntity group;
     @ManyToMany(mappedBy = "users", cascade = {CascadeType.DETACH, CascadeType.MERGE,
-                CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+            CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @OrderBy("id")
     private Set<TaskEntity> tasks = new LinkedHashSet<>();
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL,
-               orphanRemoval = true,fetch = FetchType.LAZY)
+            orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderBy("id")
     private Set<ProjectEntity> managedProjects = new LinkedHashSet<>();
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     private AccountEntity account;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",
-               orphanRemoval = true,fetch = FetchType.EAGER)
+            orphanRemoval = true, fetch = FetchType.EAGER)
     //eager because one user can have only up to 3 roles
     @OrderBy("id")
     private Set<RoleEntity> roles = new LinkedHashSet<>();

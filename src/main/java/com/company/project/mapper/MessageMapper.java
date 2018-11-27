@@ -17,23 +17,24 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
     private ConversationService conversationService;
 
     @Autowired
-    public MessageMapper(UserService userService,ConversationService conversationService){
+    public MessageMapper(UserService userService, ConversationService conversationService) {
         this.userService = userService;
         this.conversationService = conversationService;
     }
+
     @Override
     public void fromDtoToExistingEntity(MessageDto messageDto, MessageEntity messageEntity) {
-        if(messageDto==null || messageEntity==null){
+        if (messageDto == null || messageEntity == null) {
             throw new MapperException("Unable to map from MessageDto to existing MessageEntity");
         }
-        UserEntity recipientEntity,senderEntity;
+        UserEntity recipientEntity, senderEntity;
         recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
-        if(recipientEntity== null){
+        if (recipientEntity == null) {
             throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
         }
         senderEntity = userService.read(messageDto.getSenderId());
-        if (messageDto.getId()!=null)
-        messageEntity.setId(messageDto.getId());
+        if (messageDto.getId() != null)
+            messageEntity.setId(messageDto.getId());
         messageEntity.setSender(senderEntity);
         messageEntity.setRecipient(recipientEntity);
         ConversationEntity conversationEntity = conversationService.read(messageDto.getConversationId());
@@ -45,17 +46,17 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
 
     @Override
     public MessageEntity fromDtoToNewEntity(MessageDto messageDto) {
-        if(messageDto==null){
+        if (messageDto == null) {
             throw new MapperException("Unable to map from MessageDto to new MessageEntity");
         }
-        UserEntity recipientEntity,senderEntity;
+        UserEntity recipientEntity, senderEntity;
         recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
-        if(recipientEntity== null){
+        if (recipientEntity == null) {
             throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
         }
         senderEntity = userService.read(messageDto.getSenderId());
         MessageEntity messageEntity = new MessageEntity();
-        if (messageDto.getId()!=null)
+        if (messageDto.getId() != null)
             messageEntity.setId(messageDto.getId());
         messageEntity.setSender(senderEntity);
         messageEntity.setRecipient(recipientEntity);
@@ -69,7 +70,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
 
     @Override
     public MessageDto fromEntityToNewDto(MessageEntity messageEntity) {
-        if(messageEntity==null){
+        if (messageEntity == null) {
             throw new MapperException("Unable to map from MessageEntity to MessageDto");
         }
         MessageDto messageDto = new MessageDto();

@@ -43,14 +43,13 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         if (roleDtos != null && !roleDtos.isEmpty()) {
 
             for (RoleDto roleDto : roleDtos) {
-               if(roleDto.getId()!=null && ifRoleAlreadyExists(userEntity,roleDto)){
-                   updateRole(userEntity,roleDto);
-               }
-               else {
-                   RoleEntity roleEntity = roleMapper.fromDtoToNewEntity(roleDto);
-                   roleEntity.setUser(userEntity);
-                   userEntity.addRole(roleEntity);
-               }
+                if (roleDto.getId() != null && ifRoleAlreadyExists(userEntity, roleDto)) {
+                    updateRole(userEntity, roleDto);
+                } else {
+                    RoleEntity roleEntity = roleMapper.fromDtoToNewEntity(roleDto);
+                    roleEntity.setUser(userEntity);
+                    userEntity.addRole(roleEntity);
+                }
             }
         }
         System.out.println(userEntity);
@@ -100,20 +99,20 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         return userDto;
     }
 
-    private void updateRole(UserEntity userEntity, RoleDto roleDto){
+    private void updateRole(UserEntity userEntity, RoleDto roleDto) {
         Set<RoleEntity> roles = userEntity.getRoles();
         Long roleId = roleDto.getId();
-        for(RoleEntity role: roles){
-            if(role.getId().equals(roleId)){
+        for (RoleEntity role : roles) {
+            if (role.getId().equals(roleId)) {
                 role.setRoleValue(RoleEntity.Role.valueOf(roleDto.getRoleName()));
             }
         }
 
     }
 
-    private boolean ifRoleAlreadyExists(UserEntity userEntity,RoleDto roleDto){
-        for(RoleEntity roleEntity:userEntity.getRoles()){
-            if(roleEntity.getId().equals(roleDto.getId()))
+    private boolean ifRoleAlreadyExists(UserEntity userEntity, RoleDto roleDto) {
+        for (RoleEntity roleEntity : userEntity.getRoles()) {
+            if (roleEntity.getId().equals(roleDto.getId()))
                 return true;
         }
         return false;

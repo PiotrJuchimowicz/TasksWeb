@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AccountRepository  extends AbstractRepository<AccountEntity> {
+public interface AccountRepository extends AbstractRepository<AccountEntity> {
     AccountEntity findByEmail(String email);
+
     AccountEntity findByUser(UserEntity userEntity);
+
     List<AccountEntity> findAccountEntitiesByIsActive(Boolean isActive);
 }

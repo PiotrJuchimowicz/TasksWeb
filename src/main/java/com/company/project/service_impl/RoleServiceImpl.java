@@ -16,7 +16,7 @@ import java.util.List;
 @Transactional
 public class RoleServiceImpl extends AbstractServiceImpl<RoleEntity> implements RoleService {
     @Autowired
-    public RoleServiceImpl(AbstractRepository<RoleEntity> abstractRepository){
+    public RoleServiceImpl(AbstractRepository<RoleEntity> abstractRepository) {
         super(abstractRepository);
     }
 
@@ -25,7 +25,7 @@ public class RoleServiceImpl extends AbstractServiceImpl<RoleEntity> implements 
         return getRoleRepository().findRoleEntitiesByUser(userEntity);
     }
 
-    private RoleRepository getRoleRepository(){
-        return (RoleRepository)this.getAbstractRepository();
+    private RoleRepository getRoleRepository() {
+        return (RoleRepository) this.getAbstractRepository();
     }
 }

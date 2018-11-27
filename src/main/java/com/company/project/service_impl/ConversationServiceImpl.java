@@ -48,7 +48,7 @@ public class ConversationServiceImpl extends AbstractServiceImpl<ConversationEnt
         latestMessages.sort(Comparator.comparing(MessageEntity::getPostDate).reversed());
         System.out.println(latestMessages);
         List<ConversationEntity> sortedConversations = new LinkedList<>();
-        for(MessageEntity messageEntity: latestMessages){
+        for (MessageEntity messageEntity : latestMessages) {
             ConversationEntity conversationEntity = messageEntity.getConversation();
             sortedConversations.add(conversationEntity);
         }

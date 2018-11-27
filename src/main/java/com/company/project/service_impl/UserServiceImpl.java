@@ -17,7 +17,7 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements UserService {
     @Autowired
-    public UserServiceImpl(AbstractRepository<UserEntity> abstractRepository){
+    public UserServiceImpl(AbstractRepository<UserEntity> abstractRepository) {
         super(abstractRepository);
     }
 
@@ -30,7 +30,7 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements 
 
     @Override
     public UserEntity findByEmail(String email) {
-        return  getUserRepository().findByEmail(email);
+        return getUserRepository().findByEmail(email);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements 
         return getUserRepository().findAllByRole(roleValue);
     }
 
-    private UserRepository getUserRepository(){
+    private UserRepository getUserRepository() {
         return (UserRepository) this.getAbstractRepository();
     }
 }
