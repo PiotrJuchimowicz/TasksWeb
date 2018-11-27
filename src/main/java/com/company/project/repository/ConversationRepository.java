@@ -9,9 +9,15 @@ import java.util.List;
 
 @Repository
 public interface ConversationRepository extends AbstractRepository<ConversationEntity> {
-    //TODO -fix performance
-    @Query("SELECT DISTINCT messageEntity.conversation " +
-            "FROM MessageEntity messageEntity " +
-            "WHERE (messageEntity.sender.id=:userId OR  messageEntity.recipient.id=:userId) ")
-    List<ConversationEntity> findSortedConversationsByLastMessage(@Param("userId") Long userId);
+    @Query(value ="SELECT conversation_t.id " +
+            "FROM conversation_t  INNER JOIN message_t message ON conversation_t.id = message.conversation_id " +
+            "WHERE (message.sender_id=:userId OR message.recipient_id=:userId) " +
+            "GROUP BY conversation_t.id,message.post_date " +
+            "HAVING message.post_date = " +
+                                    "(SELECT max(message2.post_date) " +
+                                    " FROM message_t message2 " +
+                                    " WHERE message2.conversation_id = conversation_t.id) " +
+            "ORDER BY message.post_date DESC "
+            ,nativeQuery = true)
+    List<Long> findSortedConversationsIdByLastMessageDESC(@Param("userId") Long userId);
 }

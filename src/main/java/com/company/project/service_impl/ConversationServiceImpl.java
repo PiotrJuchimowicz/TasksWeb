@@ -36,21 +36,11 @@ public class ConversationServiceImpl extends AbstractServiceImpl<ConversationEnt
 
     @Override
     public List<ConversationEntity> findSortedConversationsByLastMessage(Long userId) {
-        List<ConversationEntity> conversations = this.getConversationRepository().findSortedConversationsByLastMessage(userId);
-        System.out.println(conversations);
-        List<MessageEntity> latestMessages = new LinkedList<>();
-        for (ConversationEntity conversationEntity : conversations) {
-            Hibernate.initialize(conversationEntity.getMessages());
-            List<MessageEntity> messages = new LinkedList<>(conversationEntity.getMessages());
-            messages.sort(Comparator.comparing(MessageEntity::getPostDate).reversed());
-            latestMessages.add(messages.get(0));
-        }
-        latestMessages.sort(Comparator.comparing(MessageEntity::getPostDate).reversed());
-        System.out.println(latestMessages);
+        List<Long> selectedIds = this.getConversationRepository().findSortedConversationsIdByLastMessageDESC(userId);
         List<ConversationEntity> sortedConversations = new LinkedList<>();
-        for (MessageEntity messageEntity : latestMessages) {
-            ConversationEntity conversationEntity = messageEntity.getConversation();
-            sortedConversations.add(conversationEntity);
+        for(Long id: selectedIds){
+            ConversationEntity entity  = read(id);
+            sortedConversations.add(entity);
         }
         return sortedConversations;
     }
