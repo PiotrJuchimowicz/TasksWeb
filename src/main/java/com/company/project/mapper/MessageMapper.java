@@ -32,7 +32,10 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         if (recipientEntity == null) {
             throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
         }
-        senderEntity = userService.read(messageDto.getSenderId());
+        senderEntity = userService.findByEmail(messageDto.getSenderEmail());
+        if(senderEntity==null){
+            throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
+        }
         if (messageDto.getId() != null)
             messageEntity.setId(messageDto.getId());
         messageEntity.setSender(senderEntity);
@@ -54,7 +57,10 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         if (recipientEntity == null) {
             throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
         }
-        senderEntity = userService.read(messageDto.getSenderId());
+        senderEntity = userService.findByEmail(messageDto.getSenderEmail());
+        if(senderEntity==null){
+            throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
+        }
         MessageEntity messageEntity = new MessageEntity();
         if (messageDto.getId() != null)
             messageEntity.setId(messageDto.getId());
@@ -80,7 +86,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         messageDto.setPostDate(messageEntity.getPostDate());
         messageDto.setConversationId(messageEntity.getConversation().getId());
         messageDto.setRecipientEmail(messageEntity.getRecipient().getAccount().getEmail());
-        messageDto.setSenderId(messageEntity.getSender().getId());
+        messageDto.setSenderEmail(messageEntity.getSender().getAccount().getEmail());
         return messageDto;
     }
 }

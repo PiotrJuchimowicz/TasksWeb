@@ -16,7 +16,7 @@ public class MessageDto extends AbstractDto {
     LocalDateTime postDate;
     //in json property name is: read
     private boolean isRead;
-    private Long senderId;
+    private String senderEmail;
     private String recipientEmail;
     private Long conversationId;
 
