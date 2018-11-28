@@ -30,31 +30,46 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         if (userDto == null || userEntity == null) {
             throw new MapperException("Unable to map from UserDto to existing UserEntity");
         }
-        userEntity.setName(userDto.getName());
-        userEntity.setSurname(userDto.getSurname());
-        userEntity.setPhone(userDto.getPhone());
+        String name = userDto.getName();
+        if (name != null)
+            userEntity.setName(name);
+        String surname = userDto.getSurname();
+        if (surname != null)
+            userEntity.setSurname(surname);
+        String phone = userDto.getPhone();
+        if (phone != null)
+            userEntity.setPhone(phone);
         AccountDto accountDto = userDto.getAccount();
+        AccountEntity existingAccountEntity = userEntity.getAccount();
         if (accountDto != null) {
-            AccountEntity accountEntity = accountMapper.fromDtoToNewEntity(accountDto);
-            accountEntity.addUser(userEntity);
+            if (existingAccountEntity != null) {
+                accountMapper.fromDtoToExistingEntity(accountDto, existingAccountEntity);
+            } else {
+                AccountEntity accountEntity = accountMapper.fromDtoToNewEntity(accountDto);
+                accountEntity.addUser(userEntity);
+            }
         }
 
         List<RoleDto> roleDtos = userDto.getRoles();
+        Set<RoleEntity> roleEntities = userEntity.getRoles();
         if (roleDtos != null && !roleDtos.isEmpty()) {
-
-            for (RoleDto roleDto : roleDtos) {
-                if (roleDto.getId() != null && ifRoleAlreadyExists(userEntity, roleDto)) {
-                    updateRole(userEntity, roleDto);
-                } else {
+            if (roleEntities.isEmpty()) {
+                for (RoleDto roleDto : roleDtos) {
                     RoleEntity roleEntity = roleMapper.fromDtoToNewEntity(roleDto);
-                    roleEntity.setUser(userEntity);
                     userEntity.addRole(roleEntity);
                 }
+            } else {
+                for (RoleDto roleDto : roleDtos) {
+                    RoleEntity.Role roleDtoValue = RoleEntity.Role.valueOf(roleDto.getRoleName());
+                    if (!(ifRoleExistsInCollection(roleDtoValue, roleEntities))) {
+                        RoleEntity roleEntity = roleMapper.fromDtoToNewEntity(roleDto);
+                        userEntity.addRole(roleEntity);
+                    }
+                }
+
             }
         }
-        System.out.println(userEntity);
-        System.out.println(userEntity.getAccount());
-        System.out.println(userEntity.getRoles());
+
     }
 
     @Override
@@ -99,20 +114,9 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         return userDto;
     }
 
-    private void updateRole(UserEntity userEntity, RoleDto roleDto) {
-        Set<RoleEntity> roles = userEntity.getRoles();
-        Long roleId = roleDto.getId();
-        for (RoleEntity role : roles) {
-            if (role.getId().equals(roleId)) {
-                role.setRoleValue(RoleEntity.Role.valueOf(roleDto.getRoleName()));
-            }
-        }
-
-    }
-
-    private boolean ifRoleAlreadyExists(UserEntity userEntity, RoleDto roleDto) {
-        for (RoleEntity roleEntity : userEntity.getRoles()) {
-            if (roleEntity.getId().equals(roleDto.getId()))
+    private boolean ifRoleExistsInCollection(RoleEntity.Role role, Set<RoleEntity> roleEntities) {
+        for (RoleEntity roleEntity : roleEntities) {
+            if (roleEntity.getRoleValue() == role)
                 return true;
         }
         return false;
