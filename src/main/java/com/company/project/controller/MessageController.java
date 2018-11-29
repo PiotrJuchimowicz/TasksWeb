@@ -43,6 +43,11 @@ public class MessageController extends AbstractController<MessageEntity, Message
         throw new UnsupportedOperationException("Operation is not supprted");
     }
 
+    @Override
+    public void deleteAll() {
+        throw new UnsupportedOperationException("Operation is not supported");
+    }
+
     private MessageService getMessageService() {
         return (MessageService) this.getAbstractService();
     }
