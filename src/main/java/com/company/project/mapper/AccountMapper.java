@@ -20,8 +20,10 @@ public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> 
         if(isActive!=null)
         entity.setActive(isActive);
         String password = dto.getPassword();
-        if(password!=null)
-        entity.setPassword(password);
+        if(password!=null){
+            int passwordHash = password.hashCode();
+            entity.setPassword(String.valueOf(passwordHash));
+        }
     }
 
     @Override
@@ -31,7 +33,8 @@ public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> 
         }
         AccountEntity entity = new AccountEntity();
         entity.setEmail(dto.getEmail());
-        entity.setPassword(dto.getPassword());
+        int passwordHash = dto.getPassword().hashCode();
+        entity.setPassword(String.valueOf(passwordHash));
         entity.setActive(dto.getIsActive());
         return entity;
     }
