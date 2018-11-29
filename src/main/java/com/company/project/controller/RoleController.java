@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/roles")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -27,11 +29,20 @@ public class RoleController extends AbstractController<RoleEntity, RoleDto> {
 
     @Override
     public void deleteOne(@PathVariable("id") Long id) {
-        deleteRoleAndUserDependencies(id);
+        removeDependencyBetweenRoleAndUser(id);
         super.deleteOne(id);
     }
 
-    private void deleteRoleAndUserDependencies(Long roleId){
+    @Override
+    public void deleteAll(){
+        List<RoleEntity> roles = this.getAbstractService().readAll();
+        for(RoleEntity roleEntity : roles){
+            removeDependencyBetweenRoleAndUser(roleEntity.getId());
+        }
+        super.deleteAll();
+    }
+
+    private void removeDependencyBetweenRoleAndUser(Long roleId){
         RoleEntity roleEntity = getAbstractService().read(roleId);
         roleEntity.getUser().removeRole(roleEntity);
     }

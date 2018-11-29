@@ -86,7 +86,6 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         List<RoleDto> roleDtos = dto.getRoles();
         for (RoleDto roleDto : roleDtos) {
             RoleEntity roleEntity = roleMapper.fromDtoToNewEntity(roleDto);
-            roleEntity.setUser(userEntity);
             userEntity.addRole(roleEntity);
         }
         return userEntity;

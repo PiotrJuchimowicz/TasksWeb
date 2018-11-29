@@ -9,11 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
-    private UserService userService;
-
-    public RoleMapper(UserService userService){
-        this.userService = userService;
-    }
     @Override
     public void fromDtoToExistingEntity(RoleDto dto, RoleEntity entity) {
        throw new UnsupportedOperationException("This operation is not supported");
@@ -27,8 +22,6 @@ public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
         RoleEntity roleEntity = new RoleEntity();
         RoleEntity.Role roleValue = RoleEntity.Role.valueOf(dto.getRoleName());
         roleEntity.setRoleValue(roleValue);
-        UserEntity userEntity = userService.read(dto.getUserId());
-        userEntity.addRole(roleEntity);
         return roleEntity;
     }
 
