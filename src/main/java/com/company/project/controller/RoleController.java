@@ -27,8 +27,12 @@ public class RoleController extends AbstractController<RoleEntity, RoleDto> {
 
     @Override
     public void deleteOne(@PathVariable("id") Long id) {
-        RoleEntity roleEntity = getAbstractService().read(id);
-        roleEntity.getUser().removeRole(roleEntity);
+        deleteRoleAndUserDependencies(id);
         super.deleteOne(id);
+    }
+
+    private void deleteRoleAndUserDependencies(Long roleId){
+        RoleEntity roleEntity = getAbstractService().read(roleId);
+        roleEntity.getUser().removeRole(roleEntity);
     }
 }
