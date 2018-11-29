@@ -7,11 +7,8 @@ import com.company.project.service.AbstractService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/roles")
@@ -25,25 +22,5 @@ public class RoleController extends AbstractController<RoleEntity, RoleDto> {
     @Override
     public RoleDto update(Long id, RoleDto dto) {
         throw new UnsupportedOperationException("This operation is not supported");
-    }
-
-    @Override
-    public void deleteOne(@PathVariable("id") Long id) {
-        removeDependencyBetweenRoleAndUser(id);
-        super.deleteOne(id);
-    }
-
-    @Override
-    public void deleteAll(){
-        List<RoleEntity> roles = this.getAbstractService().readAll();
-        for(RoleEntity roleEntity : roles){
-            removeDependencyBetweenRoleAndUser(roleEntity.getId());
-        }
-        super.deleteAll();
-    }
-
-    private void removeDependencyBetweenRoleAndUser(Long roleId){
-        RoleEntity roleEntity = getAbstractService().read(roleId);
-        roleEntity.getUser().removeRole(roleEntity);
     }
 }

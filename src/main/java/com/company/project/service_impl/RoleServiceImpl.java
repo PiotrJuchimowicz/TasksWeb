@@ -8,6 +8,7 @@ import com.company.project.repository.RoleRepository;
 import com.company.project.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,6 +24,17 @@ public class RoleServiceImpl extends AbstractServiceImpl<RoleEntity> implements 
     @Override
     public List<RoleEntity> findRoleEntitiesByUser(UserEntity userEntity) {
         return getRoleRepository().findRoleEntitiesByUser(userEntity);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        RoleEntity roleEntity = this.read(id);
+        roleEntity.getUser().removeRole(roleEntity);
+    }
+
+    @Override
+    public void deleteAll() {
+        this.getRoleRepository().deleteAllInBatch();
     }
 
     private RoleRepository getRoleRepository() {

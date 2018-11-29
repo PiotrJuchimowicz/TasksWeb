@@ -31,8 +31,7 @@ public class RoleEntity extends AbstractEntity {
         if (this == o) return true;
         if (!(o instanceof RoleEntity)) return false;
         RoleEntity that = (RoleEntity) o;
-        return roleValue == that.roleValue && Objects.equals(this.getId(), that.getId()) &&
-                Objects.equals(this.user, that.user);
+        return roleValue == that.roleValue && Objects.equals(this.getId(), that.getId());
     }
 
     @Override
