@@ -11,6 +11,8 @@ import com.company.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> {
     private UserService userService;
@@ -27,24 +29,27 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         if (messageDto == null || messageEntity == null) {
             throw new MapperException("Unable to map from MessageDto to existing MessageEntity");
         }
-        UserEntity recipientEntity, senderEntity;
-        recipientEntity = userService.findByEmail(messageDto.getRecipientEmail());
-        if (recipientEntity == null) {
-            throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
+        LocalDateTime postDate = messageDto.getPostDate();
+        if(postDate!=null){
+            throw new MapperException("Post date can not be changed");
         }
-        senderEntity = userService.findByEmail(messageDto.getSenderEmail());
-        if(senderEntity==null){
-            throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
+        String recipientEmail = messageDto.getRecipientEmail();
+        if(recipientEmail!=null){
+            throw new MapperException("Recipient email can not be changed");
         }
-        if (messageDto.getId() != null)
-            messageEntity.setId(messageDto.getId());
-        messageEntity.setSender(senderEntity);
-        messageEntity.setRecipient(recipientEntity);
-        ConversationEntity conversationEntity = conversationService.read(messageDto.getConversationId());
-        messageEntity.setConversation(conversationEntity);
-        messageEntity.setBody(messageDto.getBody());
-        messageEntity.setRead(messageDto.isRead());
-        messageEntity.setPostDate(messageDto.getPostDate());
+        String senderEmail = messageDto.getSenderEmail();
+        if(senderEmail!=null){
+            throw new MapperException("Sender email can not be changed");
+        }
+        String body = messageDto.getBody();
+        if(body!=null){
+            throw new MapperException("Message body can not be changed");
+        }
+        Long conversationId = messageDto.getConversationId();
+        if(conversationId!=null){
+            throw new MapperException("Conversation id can not be changed");
+        }
+        messageEntity.setRead(messageDto.getIsRead());
     }
 
     @Override
@@ -62,14 +67,12 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
             throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
         }
         MessageEntity messageEntity = new MessageEntity();
-        if (messageDto.getId() != null)
-            messageEntity.setId(messageDto.getId());
         messageEntity.setSender(senderEntity);
         messageEntity.setRecipient(recipientEntity);
         ConversationEntity conversationEntity = conversationService.read(messageDto.getConversationId());
         messageEntity.setConversation(conversationEntity);
         messageEntity.setBody(messageDto.getBody());
-        messageEntity.setRead(messageDto.isRead());
+        messageEntity.setRead(messageDto.getIsRead());
         messageEntity.setPostDate(messageDto.getPostDate());
         return messageEntity;
     }
@@ -82,7 +85,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         MessageDto messageDto = new MessageDto();
         messageDto.setId(messageEntity.getId());
         messageDto.setBody(messageEntity.getBody());
-        messageDto.setRead(messageEntity.isRead());
+        messageDto.setIsRead(messageEntity.isRead());
         messageDto.setPostDate(messageEntity.getPostDate());
         messageDto.setConversationId(messageEntity.getConversation().getId());
         messageDto.setRecipientEmail(messageEntity.getRecipient().getAccount().getEmail());

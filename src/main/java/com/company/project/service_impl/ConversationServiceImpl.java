@@ -1,7 +1,6 @@
 package com.company.project.service_impl;
 
 import com.company.project.model.ConversationEntity;
-import com.company.project.model.MessageEntity;
 import com.company.project.repository.AbstractRepository;
 import com.company.project.repository.ConversationRepository;
 import com.company.project.repository.MessageRepository;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
+import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,10 +35,10 @@ public class ConversationServiceImpl extends AbstractServiceImpl<ConversationEnt
 
     @Override
     public List<ConversationEntity> findSortedConversationsByLastMessage(Long userId) {
-        List<Long> selectedIds = this.getConversationRepository().findSortedConversationsIdByLastMessageDESC(userId);
+        List<BigInteger> selectedIds = this.getConversationRepository().findSortedConversationsIdByLastMessageDESC(BigInteger.valueOf(userId));
         List<ConversationEntity> sortedConversations = new LinkedList<>();
-        for(Long id: selectedIds){
-            ConversationEntity entity  = read(id);
+        for (BigInteger id : selectedIds) {
+            ConversationEntity entity = read(id.longValue());
             sortedConversations.add(entity);
         }
         return sortedConversations;

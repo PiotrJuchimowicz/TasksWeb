@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -19,5 +20,5 @@ public interface ConversationRepository extends AbstractRepository<ConversationE
                                     " WHERE message2.conversation_id = conversation_t.id) " +
             "ORDER BY message.post_date DESC "
             ,nativeQuery = true)
-    List<Long> findSortedConversationsIdByLastMessageDESC(@Param("userId") Long userId);
+    List<BigInteger> findSortedConversationsIdByLastMessageDESC(@Param("userId") BigInteger userId);
 }
