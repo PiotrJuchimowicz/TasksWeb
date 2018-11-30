@@ -5,6 +5,9 @@ import com.company.project.exception.MapperException;
 import com.company.project.model.ConversationEntity;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Component
 public class ConversationMapper implements AbstractMapper<ConversationEntity, ConversationDto> {
     @Override
@@ -12,10 +15,13 @@ public class ConversationMapper implements AbstractMapper<ConversationEntity, Co
         if (dto == null || entity == null) {
             throw new MapperException("Unable to map from ConversationDto to existing ConversationEntity");
         }
-        if (dto.getId() != null)
-            entity.setId(dto.getId());
-        entity.setTitle(dto.getTitle());
-        entity.setCreationDate(dto.getCreationDate());
+        LocalDateTime creationDate = dto.getCreationDate();
+        if(creationDate!=null){
+            throw new MapperException("Creation date can not be changed");
+        }
+        String title = dto.getTitle();
+        if(title!=null)
+        entity.setTitle(title);
     }
 
     @Override
@@ -24,8 +30,6 @@ public class ConversationMapper implements AbstractMapper<ConversationEntity, Co
             throw new MapperException("Unable to map from ConversationDto to new ConversationEntity");
         }
         ConversationEntity entity = new ConversationEntity();
-        if (dto.getId() != null)
-            entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
         entity.setCreationDate(dto.getCreationDate());
         return entity;

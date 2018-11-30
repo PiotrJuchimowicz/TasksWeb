@@ -34,14 +34,14 @@ public abstract class AbstractController<T extends AbstractEntity, K extends Abs
         return abstractMapper.fromEntityToNewDto(entity);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public K update(@PathVariable("id") Long id, @RequestBody K dto) {
         log.info("Updating object with id:" + id);
         log.info("Received json: " + dto);
         T entity = abstractService.read(id);
         abstractMapper.fromDtoToExistingEntity(dto, entity);
-        log.info("Mapped dto to entity: " + entity);
         entity = abstractService.update(entity);
+        log.info("Updated entity: " + entity);
         return abstractMapper.fromEntityToNewDto(entity);
 
     }
@@ -78,15 +78,15 @@ public abstract class AbstractController<T extends AbstractEntity, K extends Abs
         abstractService.deleteAll();
     }
 
-    public AbstractService<T> getAbstractService() {
+    AbstractService<T> getAbstractService() {
         return abstractService;
     }
 
-    public AbstractMapper<T, K> getAbstractMapper() {
+    AbstractMapper<T, K> getAbstractMapper() {
         return abstractMapper;
     }
 
-    public Logger getLogger() {
+    Logger getLogger() {
         return log;
     }
 }

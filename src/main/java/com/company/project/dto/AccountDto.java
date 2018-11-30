@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Email;
+
 @ToString(callSuper = true)
 @Getter
 @Setter
@@ -12,5 +14,5 @@ public class AccountDto extends AbstractDto {
     private String password;
     private long userId;
     //in json property name is: active
-    private boolean isActive;
+    private Boolean isActive;
 }

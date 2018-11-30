@@ -3,19 +3,15 @@ package com.company.project.mapper;
 import com.company.project.dto.RoleDto;
 import com.company.project.exception.MapperException;
 import com.company.project.model.RoleEntity;
+import com.company.project.model.UserEntity;
+import com.company.project.service.UserService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
     @Override
     public void fromDtoToExistingEntity(RoleDto dto, RoleEntity entity) {
-        if (dto == null || entity == null) {
-            throw new MapperException("Unable to map from RoleDto to existing RoleEntity");
-        }
-        RoleEntity.Role roleValue = RoleEntity.Role.valueOf(dto.getRoleName());
-        if (dto.getId() != null)
-            entity.setId(dto.getId());
-        entity.setRoleValue(roleValue);
+       throw new UnsupportedOperationException("This operation is not supported");
     }
 
     @Override
@@ -23,12 +19,10 @@ public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
         if (dto == null) {
             throw new MapperException("Unable to map from RoleDto to new RoleEntity");
         }
-        RoleEntity entity = new RoleEntity();
+        RoleEntity roleEntity = new RoleEntity();
         RoleEntity.Role roleValue = RoleEntity.Role.valueOf(dto.getRoleName());
-        if (dto.getId() != null)
-            entity.setId(dto.getId());
-        entity.setRoleValue(roleValue);
-        return entity;
+        roleEntity.setRoleValue(roleValue);
+        return roleEntity;
     }
 
     @Override

@@ -18,7 +18,12 @@ public class AccountController extends AbstractController<AccountEntity, Account
     public AccountController(AbstractMapper<AccountEntity, AccountDto> abstractMapper, AbstractService<AccountEntity> abstractService) {
         super(abstractMapper, abstractService, LoggerFactory.getLogger(AccountController.class));
     }
-    
+
+    @Override
+    public AccountDto add(AccountDto dto) {
+        throw new UnsupportedOperationException("Operation is not supported");
+    }
+
     @Override
     public void deleteOne(Long id) {
         throw new UnsupportedOperationException("Operation is not supported");

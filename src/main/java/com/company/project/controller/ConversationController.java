@@ -48,7 +48,7 @@ public class ConversationController extends AbstractController<ConversationEntit
     @GetMapping("/sortedConversations/{userId}")
     public List<ConversationDto> getSortedConversations(@PathVariable("userId") Long userId) {
         Logger log = this.getLogger();
-        log.info("Getting sorted conversations by userId:" + userId);
+        log.info("Getting sorted conversation.json by userId:" + userId);
         List<ConversationEntity> sortedConversations = getConversationService().findSortedConversationsByLastMessage(userId);
         List<ConversationDto> sortedDtos = new LinkedList<>();
         for (ConversationEntity conversationEntity : sortedConversations) {
