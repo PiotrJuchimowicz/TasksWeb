@@ -18,6 +18,7 @@ public class UserDto extends AbstractDto {
     private AccountDto account;
     private List<RoleDto> roles = new LinkedList<>();
     private Set<TaskDto> tasks;
+    private Set<ProjectDto> managedProjects;
 
     public void addRole(RoleDto roleDto) {
         roles.add(roleDto);

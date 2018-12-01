@@ -20,4 +20,7 @@ public interface UserService extends AbstractService<UserEntity> {
     List<UserEntity> findAllByRole(RoleEntity.Role roleValue);
 
     UserEntity findUserWithTasks(Long userId);
+
+    UserEntity findUserWithManagedProjects(Long userId);
+
 }

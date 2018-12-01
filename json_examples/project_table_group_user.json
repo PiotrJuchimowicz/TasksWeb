@@ -1,0 +1,22 @@
+#dodawanie projektu POST na /projects
+#podajemy tez id osoby ktora ma byc project ownerem
+{
+	"name":"project name A",
+	"description" : "project description ",
+	"ownerId" : "1"
+}
+#usuwanie projektu DELETE na /projects/{projectId}
+#pobieranie projektu GET na /projects lub GET na /projects/{id}
+#aktualizacja projektu PATCH na /projects/{projectsId}
+{
+	"name":"new project name ",
+	"description" : "new project description "
+}
+#jesli w PATCH na projects/{projectId} podamy nowe userId
+to zmienimy w danym projekcie project ownera
+#np tu zmieniamy na tego o id 2
+{
+	"ownerId" : "2"
+}
+#GET na users/withManagedProjects/{userId}
+zwroci projekty w ktorch project ownerem jest user o danym userId

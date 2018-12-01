@@ -57,6 +57,13 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements 
         return  userEntity;
     }
 
+    @Override
+    public UserEntity findUserWithManagedProjects(Long userId) {
+        UserEntity userEntity = this.read(userId);
+        Hibernate.initialize(userEntity.getManagedProjects());
+        return userEntity;
+    }
+
     private UserRepository getUserRepository() {
         return (UserRepository) this.getAbstractRepository();
     }
