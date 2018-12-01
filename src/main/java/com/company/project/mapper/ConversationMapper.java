@@ -29,9 +29,12 @@ public class ConversationMapper implements AbstractMapper<ConversationEntity, Co
         if (dto == null) {
             throw new MapperException("Unable to map from ConversationDto to new ConversationEntity");
         }
+        if(dto.getCreationDate()!=null){
+            throw new MapperException("Creation date is generated automatically");
+        }
         ConversationEntity entity = new ConversationEntity();
         entity.setTitle(dto.getTitle());
-        entity.setCreationDate(dto.getCreationDate());
+        entity.setCreationDate(LocalDateTime.now());
         return entity;
     }
 
