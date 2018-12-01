@@ -38,6 +38,8 @@ public class TaskController extends AbstractController<TaskEntity, TaskDto> {
         for (UserEntity userEntity : userEntities) {
             UserDto userDto = userMapper.fromEntityToNewDto(userEntity);
             userDtos.add(userDto);
+            userDto.setRoles(null);
+            userDto.setAccount(null);
         }
         taskDto.setUsers(userDtos);
         return taskDto;

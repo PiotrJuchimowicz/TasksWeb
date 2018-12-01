@@ -37,6 +37,8 @@ public class UserController extends AbstractController<UserEntity, UserDto> {
             taskDtos.add(taskDto);
         }
         userDto.setTasks(taskDtos);
+        userDto.setRoles(null);
+        userDto.setAccount(null);
         return userDto;
     }
 
