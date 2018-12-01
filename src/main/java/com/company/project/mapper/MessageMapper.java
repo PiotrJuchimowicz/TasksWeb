@@ -66,6 +66,9 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         if(senderEntity==null){
             throw new UnableToFindUserWithEmail("Unable to find user with email: " + messageDto.getRecipientEmail());
         }
+        if(messageDto.getPostDate()!=null){
+            throw new MapperException("Post date is generated automatically");
+        }
         MessageEntity messageEntity = new MessageEntity();
         messageEntity.setSender(senderEntity);
         messageEntity.setRecipient(recipientEntity);
@@ -73,7 +76,7 @@ public class MessageMapper implements AbstractMapper<MessageEntity, MessageDto> 
         messageEntity.setConversation(conversationEntity);
         messageEntity.setBody(messageDto.getBody());
         messageEntity.setRead(messageDto.getIsRead());
-        messageEntity.setPostDate(messageDto.getPostDate());
+        messageEntity.setPostDate(LocalDateTime.now());
         return messageEntity;
     }
 

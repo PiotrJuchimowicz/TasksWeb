@@ -3,7 +3,7 @@
 inaczej nie ma to sensu
 # dodanie konwersacji POST na conversations
 {
-	"title": "title",
+	"title": "title"
 }
 
 #konwersacji mozna zaktualizowac jedynie pole title - bez sensu jest mozliwosc aktualizacji daty
@@ -15,8 +15,8 @@ i podajemy nowy title
 {
 "body" : "message body",
 "isRead":false,
-"senderEmail":"yyyi@gmail.com",
-"recipientEmail":"yyyi@gmail.com",
+"senderEmail":"jankowalski@gmail.com",
+"recipientEmail":"jankowalski@gmail.com",
 "conversationId":"1"
 }
 #w wiadomosci mozna zmienic jedynie pole isRead,za pomoca PATCH - inne zmiany nie mają sensu
