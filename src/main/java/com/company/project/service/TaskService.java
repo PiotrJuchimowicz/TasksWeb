@@ -10,5 +10,6 @@ import java.util.Set;
 public interface TaskService extends AbstractService<TaskEntity> {
 
     TaskEntity findTaskWithUsers(Long taskId);
+    void removeTaskFromUser(Long userId,Long taskId);
 }
 

@@ -59,7 +59,15 @@ public class UserEntity extends AbstractEntity {
         this.managedProjects.remove(projectEntity);
         projectEntity.setOwner(null);
     }
+    public void addTask(TaskEntity taskEntity ) {
+        this.tasks.add(taskEntity);
+        taskEntity.getUsers().add(this);
+    }
 
+    public void removeTask(TaskEntity taskEntity) {
+        this.tasks.remove(taskEntity);
+        taskEntity.getUsers().remove(this);
+    }
     @Override
     public boolean equals(Object o) {
         if (o == null) return false;

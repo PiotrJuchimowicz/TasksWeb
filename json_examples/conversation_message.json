@@ -26,6 +26,6 @@ i podajemy nowy title
 GET NA conversations/conversationWithSortedMessages/{conversationId}
 # pobranie konwersacji posortowanych po ostatniej wiadomosci:
 GET NA conversations/sortedConversations/{userId}
-# pobranie wiadomosci dla danego usera oraz dla danej wartosci pola read
+# pobranie wiadomosci dla danego usera oraz dla danej wartosci pola read - argumenty podajemy URI
 GET na messages/byRead
 np messages/byRead?recipientId=2&read=true

@@ -1,0 +1,22 @@
+#dodawanie taska danemu userowi POST na /tasks/
+{
+	"name" : "task name",
+	"description" : "task description",
+	"priority" : "HIGH",
+	"userId" : "1"
+}
+#update taska  PATCH na /tasks/{taskId}
+#UWAGA jesli dodamy userId task zostanie przydzielony do nowego usera
+{
+	"name" : "new name",
+	"priority" : "SMALL",
+	"userId" : "2"
+}
+#jesli user o id = 2 nie jest przydzielony do tego taska to zostanie on przydzielony do niego
+po powyzszym requescie
+#usuniecie taska DELETE na /tasks/{id}(userzy,ktorym przydzielono tego taska nie beda mieli juz go przydzielonego)
+
+#usuniecie przydzialu danego taska danemu userowi, parametry podajemy w URI
+# DELETE na /tasks/removeFromUser/
+np: /tasks/removeFromUser?userId=1&taskId=3
+

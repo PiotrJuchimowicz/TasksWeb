@@ -5,8 +5,13 @@ import com.company.project.exception.MapperException;
 import com.company.project.model.TaskEntity;
 import com.company.project.model.UserEntity;
 import com.company.project.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
+
+import java.util.Set;
 
 @Component
 public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
@@ -24,8 +29,8 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
         }
         Long userId = taskDto.getUserId();
         if (userId != null) {
-            UserEntity userEntity = userService.read(userId);
-            taskEntity.getUsers().add(userEntity);
+            UserEntity userEntity = userService.findUserWithTasks(userId);
+            userEntity.addTask(taskEntity);
         }
         String name = taskDto.getName();
         if (name != null) {
