@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AbstractDto {
+public abstract class AbstractDto {
     @JsonProperty(required = false)
     private Long id;
 }

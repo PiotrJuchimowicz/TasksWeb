@@ -4,7 +4,6 @@ inaczej nie ma to sensu
 # dodanie konwersacji POST na conversations
 {
 	"title": "title",
-	"creationDate":"1996-03-10-00-00-00"
 }
 
 #konwersacji mozna zaktualizowac jedynie pole title - bez sensu jest mozliwosc aktualizacji daty
@@ -14,8 +13,7 @@ i podajemy nowy title
 
 # dodanie wiadomosci do istniejacej konwersacji,uwaga read zmienilo sie na isRead
 {
-"postDate":"1996-03-10-00-00-00",
-"body" : "message body"
+"body" : "message body",
 "isRead":false,
 "senderEmail":"yyyi@gmail.com",
 "recipientEmail":"yyyi@gmail.com",
