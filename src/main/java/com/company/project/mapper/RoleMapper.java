@@ -5,13 +5,26 @@ import com.company.project.exception.MapperException;
 import com.company.project.model.RoleEntity;
 import com.company.project.model.UserEntity;
 import com.company.project.service.UserService;
+import org.springframework.beans.InvalidPropertyException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
+    private UserService userService;
+
+    @Autowired
+    public RoleMapper(UserService userService) {
+        this.userService = userService;
+    }
+
     @Override
     public void fromDtoToExistingEntity(RoleDto dto, RoleEntity entity) {
-       throw new UnsupportedOperationException("This operation is not supported");
+        throw new UnsupportedOperationException("This operation is not supported");
     }
 
     @Override
@@ -36,4 +49,7 @@ public class RoleMapper implements AbstractMapper<RoleEntity, RoleDto> {
         dto.setUserId(entity.getUser().getId());
         return dto;
     }
+
+
+
 }

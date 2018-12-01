@@ -1,0 +1,66 @@
+#Kazdy zasob mozna pobierac poprzez GET /zasob/ lub poprzez GET /zasob/{zasobId}
+#Usuwanie usera poprzez DELETE na /users/{userId}
+#Samego konta nie mozna usunac, nalezy usunac calego usera i jego konto zostanie automatycznie usuniete
+#Role mozna usuwac za pomoca DELETE /roles/{roleId}
+
+#dodanie usera wraz z rolami - POST na users/
+#pole active zmienione na isActive
+
+{
+    "name": "Jan",
+    "surname": "Kowalski",
+    "phone": "123486454",
+    "account": {
+        "email": "jankowalski@gmail.com",
+        "password": "password",
+        "isActive": true 
+    },
+    "roles": [
+    	{
+    		"roleName":"TESTER"
+        }
+    ]
+}
+
+#update usera PATCH na users/{userId}
+#mozna aktualizowac wysylajac zarowno pojedyncze jak i wszystkie pola
+#w przypadku pól zagniezdzonych, jesli cos w nich zmieniamy, trzeba podac to w obiekcie rodziu, np w account zmieniam email wiec
+# musialem podac  email  w obiekcie  account, ale na przyklad w rolach nic nie zmieniam wiec nie musze podac tablicy  roles
+# w przypadku dodawania ról dodawane są tylko te które mogą być dodane z danego zbioru który przychodzi jsonem
+
+#zmieniam surname i email
+{
+    "surname": "Juchimowicz",
+    "account": {
+        "email": "piotrjuchimowicz@gmail.com"
+    }
+}
+####
+#zmieniam surname,email i dodaje nowa role
+{
+    "surname": "Kowal",
+    "account": {
+        "email": "jankowal@gmail.com"
+    },
+    "roles": [
+        {
+            "roleName": "DEVELOPER"
+        }
+    ]
+}
+
+#update account jest mozliwe tez poprzez wyslanie patch na account/{accountId}
+{
+    "email" : "newemail@gmail.com",
+    "password": " newpassword"
+}
+
+#dodanie nowej roli mozliwe jest poprzez tylko poprzez   PATCH na /users/{userId}
+{
+	"roleName":"TESTER",
+	"userId" : "1"
+}
+
+
+
+

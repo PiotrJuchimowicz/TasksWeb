@@ -72,6 +72,7 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
 
     }
 
+
     @Override
     public UserEntity fromDtoToNewEntity(UserDto dto) {
         if (dto == null) {
@@ -112,6 +113,7 @@ public class UserMapper implements AbstractMapper<UserEntity, UserDto> {
         }
         return userDto;
     }
+
 
     private boolean ifRoleExistsInCollection(RoleEntity.Role role, Set<RoleEntity> roleEntities) {
         for (RoleEntity roleEntity : roleEntities) {

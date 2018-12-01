@@ -11,5 +11,5 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public class RoleDto extends AbstractDto {
     private String roleName;
-    private long userId;
+    private Long userId;
 }

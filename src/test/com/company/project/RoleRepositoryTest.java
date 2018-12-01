@@ -107,7 +107,7 @@ class RoleRepositoryTest {
         userEntity.setAccount(accountEntity);
         RoleEntity roleEntity = new RoleEntity();
         roleEntity.setRoleValue(RoleEntity.Role.DEVELOPER);
-        userEntity.addRole(roleEntity);
+        userEntity.addRoles(roleEntity);
         userRepository.save(userEntity);*/
         UserEntity userEntity = userRepository.findById(1L).get();
         userEntity.getAccount().setEmail("newemail@gmail.com");

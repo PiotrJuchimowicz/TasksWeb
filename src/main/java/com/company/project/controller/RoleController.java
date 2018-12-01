@@ -23,4 +23,9 @@ public class RoleController extends AbstractController<RoleEntity, RoleDto> {
     public RoleDto update(Long id, RoleDto dto) {
         throw new UnsupportedOperationException("This operation is not supported");
     }
+
+    @Override
+    public RoleDto add(RoleDto dto) {
+        throw new UnsupportedOperationException("This operation is not supported");
+    }
 }

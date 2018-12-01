@@ -5,8 +5,10 @@ import com.company.project.model.AccountEntity;
 import com.company.project.model.RoleEntity;
 import com.company.project.model.UserEntity;
 import com.company.project.repository.AbstractRepository;
+import com.company.project.repository.TaskRepository;
 import com.company.project.repository.UserRepository;
 import com.company.project.service.UserService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +48,13 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements 
     @Override
     public List<UserEntity> findAllByRole(RoleEntity.Role roleValue) {
         return getUserRepository().findAllByRole(roleValue);
+    }
+
+    @Override
+    public UserEntity findUserWithTasks(Long userId) {
+        UserEntity userEntity = this.read(userId);
+        Hibernate.initialize(userEntity.getTasks());
+        return  userEntity;
     }
 
     private UserRepository getUserRepository() {

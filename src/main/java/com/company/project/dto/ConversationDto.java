@@ -16,7 +16,7 @@ public class ConversationDto extends AbstractDto {
     private String title;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime creationDate;
-    private List<MessageDto> messages = new LinkedList<>();
+    private List<MessageDto> messages;
 
     public void addMessage(MessageDto messageDto){
         messages.add(messageDto);

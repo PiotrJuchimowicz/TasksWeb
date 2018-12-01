@@ -24,8 +24,7 @@ public class TaskEntity extends AbstractEntity {
 
     @Enumerated(value = EnumType.STRING)
     private Priority priority;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "TASK_USER",
             joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     @OrderBy("id")

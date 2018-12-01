@@ -1,0 +1,31 @@
+#pobranie zasobu GET na /zasob/ LUB GET na /zasob/{zasobId}
+#nie mozna usuwac pojedynczych wiadomosci- wiadomosci moga byc usuniete jedynie przez usuniecie calej konwersacji,
+inaczej nie ma to sensu
+# dodanie konwersacji POST na conversations
+{
+	"title": "title",
+	"creationDate":"1996-03-10-00-00-00"
+}
+
+#konwersacji mozna zaktualizowac jedynie pole title - bez sensu jest mozliwosc aktualizacji daty
+# aktualizujemy konwersacje za pomoca PATCH na conversations/{conversationId}
+i podajemy nowy title
+# usuniecie konwersacji powoduje usuniecie wszystkich powiazanych z nia wiadomosci
+
+# dodanie wiadomosci do istniejacej konwersacji,uwaga read zmienilo sie na isRead
+{
+"postDate":"1996-03-10-00-00-00",
+"body" : "message body"
+"isRead":false,
+"senderEmail":"yyyi@gmail.com",
+"recipientEmail":"yyyi@gmail.com",
+"conversationId":"1"
+}
+#w wiadomosci mozna zmienic jedynie pole isRead,za pomoca PATCH - inne zmiany nie mają sensu
+# pobranie konwersacji z posortowanymi wiadomosciami :
+GET NA conversations/conversationWithSortedMessages/{conversationId}
+# pobranie konwersacji posortowanych po ostatniej wiadomosci:
+GET NA conversations/sortedConversations/{userId}
+# pobranie wiadomosci dla danego usera oraz dla danej wartosci pola read
+GET na messages/byRead
+np messages/byRead?recipientId=2&read=true

@@ -21,8 +21,7 @@ public class UserEntity extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "group_id")
     private GroupEntity group;
-    @ManyToMany(mappedBy = "users", cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "users",fetch = FetchType.LAZY)
     @OrderBy("id")
     private Set<TaskEntity> tasks = new LinkedHashSet<>();
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL,
