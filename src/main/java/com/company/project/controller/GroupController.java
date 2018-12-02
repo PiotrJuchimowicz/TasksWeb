@@ -1,9 +1,11 @@
 package com.company.project.controller;
 
 import com.company.project.dto.GroupDto;
+import com.company.project.dto.TableDto;
 import com.company.project.dto.UserDto;
 import com.company.project.mapper.AbstractMapper;
 import com.company.project.model.GroupEntity;
+import com.company.project.model.TableEntity;
 import com.company.project.model.UserEntity;
 import com.company.project.service.AbstractService;
 import com.company.project.service.GroupService;
@@ -11,7 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.acl.Group;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -19,11 +23,14 @@ import java.util.Set;
 @CrossOrigin(origins = "http://localhost:4200")
 public class GroupController extends AbstractController<GroupEntity, GroupDto> {
     private AbstractMapper<UserEntity, UserDto> userMapper;
+    private AbstractMapper<TableEntity,TableDto> tableMapper;
+
     @Autowired
-    public GroupController(AbstractMapper<GroupEntity, GroupDto> abstractMapper,
+    public GroupController(AbstractMapper<GroupEntity, GroupDto> abstractMapper,AbstractMapper<TableEntity,TableDto> tableMapper,
                            AbstractService<GroupEntity> abstractService,AbstractMapper<UserEntity,UserDto> userMapper) {
         super(abstractMapper, abstractService, LoggerFactory.getLogger(GroupController.class));
         this.userMapper = userMapper;
+        this.tableMapper = tableMapper;
     }
 
     @GetMapping("/withUsers/{groupId}")
@@ -40,6 +47,21 @@ public class GroupController extends AbstractController<GroupEntity, GroupDto> {
             userDtos.add(userDto);
         }
         groupDto.setUsers(userDtos);
+        return groupDto;
+    }
+
+    @GetMapping("/withTables/{groupId}")
+    public GroupDto getGroupWithTables(@PathVariable("groupId") Long groupId){
+        this.getLogger().info("Getting group with tables with groupId: " + groupId);
+        GroupEntity groupEntity = this.getGroupService().getGroupWithTables(groupId);
+        GroupDto groupDto = this.getAbstractMapper().fromEntityToNewDto(groupEntity);
+        Set<TableEntity> tableEntities = groupEntity.getTables();
+        Set<TableDto> tableDtos = new LinkedHashSet<>();
+        for(TableEntity tableEntity : tableEntities){
+            TableDto tableDto = this.tableMapper.fromEntityToNewDto(tableEntity);
+            tableDtos.add(tableDto);
+        }
+        groupDto.setTables(tableDtos);
         return groupDto;
     }
 

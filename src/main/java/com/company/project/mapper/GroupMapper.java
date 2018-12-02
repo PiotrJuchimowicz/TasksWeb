@@ -56,6 +56,7 @@ public class GroupMapper implements AbstractMapper<GroupEntity, GroupDto> {
             throw new MapperException("Unable to map from GroupEntity to GroupDto");
         }
         GroupDto groupDto = new GroupDto();
+        groupDto.setId(groupEntity.getId());
         groupDto.setName(groupEntity.getName());
         return groupDto;
     }

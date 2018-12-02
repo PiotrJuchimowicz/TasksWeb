@@ -5,5 +5,6 @@ import com.company.project.model.GroupEntity;
 
 public interface GroupService extends AbstractService<GroupEntity> {
     GroupEntity getGroupWithUsers(Long groupId);
+    GroupEntity getGroupWithTables(Long groupId);
     void removeUserFromGroup(Long userId,Long groupId);
 }

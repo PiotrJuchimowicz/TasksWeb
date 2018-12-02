@@ -41,3 +41,29 @@ zwroci projekty w ktorch project ownerem jest user o danym userId
 
 #pobranie grupy wraz z jej czlonkami
 #GET na /groups/withUsers/{groupId}
+#usuniecie danej grupy(nie spowoduje usuniecia z niej userow - mozna dodac ich do innej grupy)
+#DELETE na groups/{groupId}
+#pobranie grupy wraz z tablicami na ktorych pracuje
+# GET na groups/withTables/{groupId}
+
+#dodanie tabeli wraz z groupId oraz projectId
+# POST na /tables/
+{
+	"name" :  "first table",
+	"groupId" : "1",
+	"projectId" : "1"
+}
+
+#aktualizacja danej tabeli
+# w celu unikniecia  bledow nalezy podac groupId oraz projectId nawet jesli zmieniamy tylko jedno z nich
+# PATCH na tables/{tableId}
+{
+	"name" :  "new table",
+	"groupId" : "2",
+	"projectId" : "2"
+}
+#usuniecie tabeli
+#DELETE na /tables/{tableId}
+#pobranie tabelie GET na tables/ lub GET na tables/{tableId}
+
+

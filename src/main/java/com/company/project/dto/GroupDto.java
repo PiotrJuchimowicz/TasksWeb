@@ -13,4 +13,5 @@ public class GroupDto extends AbstractDto {
     private String name;
     private Long userId;
     private Set<UserDto> users;
+    private Set<TableDto> tables;
 }

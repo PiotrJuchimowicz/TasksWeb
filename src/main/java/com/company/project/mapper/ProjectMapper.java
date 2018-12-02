@@ -56,6 +56,7 @@ public class ProjectMapper implements AbstractMapper<ProjectEntity, ProjectDto> 
             throw new MapperException("Unable to map from ProjectEntity to ProjectDto");
         }
         ProjectDto projectDto = new ProjectDto();
+        projectDto.setId(projectEntity.getId());
         projectDto.setOwnerId(projectEntity.getOwner().getId());
         projectDto.setName(projectEntity.getName());
         projectDto.setDescription(projectEntity.getDescription());

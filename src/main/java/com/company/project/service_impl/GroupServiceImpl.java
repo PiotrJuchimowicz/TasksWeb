@@ -30,6 +30,24 @@ public class GroupServiceImpl extends AbstractServiceImpl<GroupEntity> implement
     }
 
     @Override
+    public GroupEntity getGroupWithTables(Long groupId) {
+        GroupEntity groupEntity = this.read(groupId);
+        Hibernate.initialize(groupEntity.getTables());
+        return groupEntity;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        read(id);
+        GroupEntity groupEntity = this.getGroupWithUsers(id);
+        Set<UserEntity> userEntities = groupEntity.getUsersInGroup();
+        for(UserEntity userEntity: userEntities){
+            userEntity.setGroup(null);
+        }
+        this.getAbstractRepository().deleteById(id);
+    }
+
+    @Override
     public void removeUserFromGroup(Long userId, Long groupId) {
         GroupEntity groupEntity = this.read(groupId);
         Hibernate.initialize(groupEntity.getUsersInGroup());
