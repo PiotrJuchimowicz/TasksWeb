@@ -20,3 +20,24 @@ to zmienimy w danym projekcie project ownera
 }
 #GET na users/withManagedProjects/{userId}
 zwroci projekty w ktorch project ownerem jest user o danym userId
+
+#dodawanie grupy POST na /groups
+{
+	"name" : "first group"
+}
+# aktualizacja grupy PATCH na /groups/{groupId}
+{
+	"name" : "new name"
+}
+#dodawanie usera do grupy
+#PATCH na /groups/{groupId}
+{
+	"userId":"1"
+}
+#usuniecie usera z grupy 
+#DELETE na /groups/removeUser i podajemy w parametrach userId oraz groupId
+#np: /groups/removeUser?userId=1&groupId=1
+# nie usunie to usera a jedynie usunie go z grupy,zatem mozna mu pozniej przypisac inna grupe
+
+#pobranie grupy wraz z jej czlonkami
+#GET na /groups/withUsers/{groupId}

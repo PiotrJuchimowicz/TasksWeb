@@ -31,9 +31,7 @@ public class ProjectMapper implements AbstractMapper<ProjectEntity, ProjectDto> 
         }
         Long ownerId = projectDto.getOwnerId();
         if(ownerId!=null){
-            UserEntity oldProjectOwner = userService.findUserWithManagedProjects(projectEntity.getOwner().getId());
             UserEntity newProjectOwner = userService.findUserWithManagedProjects(ownerId);
-            //oldProjectOwner.removeFromManagedProjects(projectEntity);
             newProjectOwner.addToManagedProjects(projectEntity);
         }
 

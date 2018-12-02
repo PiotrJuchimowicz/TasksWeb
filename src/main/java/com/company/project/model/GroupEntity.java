@@ -16,11 +16,12 @@ import java.util.Set;
 @Getter
 public class GroupEntity extends AbstractEntity {
     private String name;
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group",fetch = FetchType.LAZY)
     @OrderBy("id")
     private Set<UserEntity> usersInGroup = new LinkedHashSet<>();
     @OrderBy("id")
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<TableEntity> tables = new LinkedHashSet<>();
 
     public GroupEntity() {
