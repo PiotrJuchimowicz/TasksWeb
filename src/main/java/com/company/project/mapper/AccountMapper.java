@@ -14,13 +14,13 @@ public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> 
             throw new MapperException("Unable to map from AccountDto to existing AccountEntity");
         }
         String email = dto.getEmail();
-        if(email!=null)
-        entity.setEmail(email);
+        if (email != null)
+            entity.setEmail(email);
         Boolean isActive = dto.getIsActive();
-        if(isActive!=null)
-        entity.setActive(isActive);
+        if (isActive != null)
+            entity.setActive(isActive);
         String password = dto.getPassword();
-        if(password!=null){
+        if (password != null) {
             int passwordHash = password.hashCode();
             entity.setPassword(String.valueOf(passwordHash));
         }
@@ -33,8 +33,10 @@ public class AccountMapper implements AbstractMapper<AccountEntity, AccountDto> 
         }
         AccountEntity entity = new AccountEntity();
         entity.setEmail(dto.getEmail());
-        int passwordHash = dto.getPassword().hashCode();
+        String password = dto.getPassword();
+        int passwordHash = password.hashCode();
         entity.setPassword(String.valueOf(passwordHash));
+        entity.setPassword(String.valueOf(password));
         entity.setActive(dto.getIsActive());
         return entity;
     }

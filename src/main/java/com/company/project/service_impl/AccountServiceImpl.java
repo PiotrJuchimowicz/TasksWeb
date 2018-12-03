@@ -21,13 +21,6 @@ public class AccountServiceImpl extends AbstractServiceImpl<AccountEntity> imple
     }
 
     @Override
-    public AccountEntity create(AccountEntity object) {
-        int passwordHash = object.getPassword().hashCode();
-        object.setPassword(String.valueOf(passwordHash));
-        return super.create(object);
-    }
-
-    @Override
     public AccountEntity findByEmail(String email) {
         return getAccountRepository().findByEmail(email);
     }
