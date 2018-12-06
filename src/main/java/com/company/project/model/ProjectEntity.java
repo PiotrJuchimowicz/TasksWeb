@@ -17,6 +17,8 @@ import java.util.Set;
 public class ProjectEntity extends AbstractEntity {
     private String name;
     private String description;
+    @OneToMany(cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<TaskEntity> tasks = new LinkedHashSet<>();
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderBy("id")
@@ -26,6 +28,17 @@ public class ProjectEntity extends AbstractEntity {
     private UserEntity owner;
 
     public ProjectEntity() {
+    }
+
+
+    public void addTask(TaskEntity taskEntity) {
+        this.tasks.add(taskEntity);
+        taskEntity.setProjectEntity(this);
+    }
+
+    public void removeTask(TaskEntity taskEntity) {
+        this.tasks.remove(taskEntity);
+        taskEntity.setProjectEntity(null);
     }
 
     public void addTable(TableEntity tableEntity) {

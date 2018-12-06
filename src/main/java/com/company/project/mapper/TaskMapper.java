@@ -2,8 +2,10 @@ package com.company.project.mapper;
 
 import com.company.project.dto.TaskDto;
 import com.company.project.exception.MapperException;
+import com.company.project.model.ProjectEntity;
 import com.company.project.model.TaskEntity;
 import com.company.project.model.UserEntity;
+import com.company.project.service.ProjectService;
 import com.company.project.service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.proxy.HibernateProxy;
@@ -16,16 +18,22 @@ import java.util.Set;
 @Component
 public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
     private UserService userService;
+    private ProjectService projectService;
 
     @Autowired
-    public TaskMapper(UserService userService) {
+    public TaskMapper(UserService userService,ProjectService projectService) {
         this.userService = userService;
+        this.projectService = projectService;
     }
 
     @Override
     public void fromDtoToExistingEntity(TaskDto taskDto, TaskEntity taskEntity) {
         if (taskDto == null || taskEntity == null) {
             throw new MapperException("Unable to map from TaskDto to existing TaskEntity");
+        }
+        Long projectId = taskDto.getProjectId();
+        if(projectId!=null){
+            throw new UnsupportedOperationException("Task can not be assignet to different project");
         }
         Long userId = taskDto.getUserId();
         if (userId != null) {
@@ -59,6 +67,8 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
         taskEntity.setPriority(priority);
         UserEntity userEntity = userService.read(taskDto.getUserId());
         taskEntity.getUsers().add(userEntity);
+        ProjectEntity projectEntity = projectService.read(taskDto.getProjectId());
+        taskEntity.setProjectEntity(projectEntity);
         return taskEntity;
     }
 
@@ -72,6 +82,7 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
         taskDto.setName(taskEntity.getName());
         taskDto.setDescription(taskEntity.getDescription());
         taskDto.setPriority(taskEntity.getPriority().toString());
+        taskDto.setProjectId(taskEntity.getProjectEntity().getId());
         return taskDto;
     }
 }

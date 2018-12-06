@@ -17,6 +17,8 @@ import java.util.Set;
 public class TaskEntity extends AbstractEntity {
     private String name;
     private String description;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ProjectEntity projectEntity;
 
     public enum Priority {
         HIGH, MEDIUM, SMALL

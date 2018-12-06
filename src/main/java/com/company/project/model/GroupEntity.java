@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 public class GroupEntity extends AbstractEntity {
     private String name;
-    @OneToMany(mappedBy = "group",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     @OrderBy("id")
     private Set<UserEntity> usersInGroup = new LinkedHashSet<>();
     @OrderBy("id")

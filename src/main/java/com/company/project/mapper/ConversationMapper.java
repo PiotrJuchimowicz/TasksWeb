@@ -4,8 +4,6 @@ import com.company.project.dto.ConversationDto;
 import com.company.project.exception.MapperException;
 import com.company.project.model.ConversationEntity;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
@@ -20,8 +18,9 @@ public class ConversationMapper implements AbstractMapper<ConversationEntity, Co
             throw new MapperException("Creation date can not be changed");
         }
         String title = dto.getTitle();
-        if(title!=null)
-        entity.setTitle(title);
+        if(title!=null) {
+            entity.setTitle(title);
+        }
     }
 
     @Override
