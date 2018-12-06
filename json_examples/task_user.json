@@ -3,7 +3,8 @@
 	"name" : "task name",
 	"description" : "task description",
 	"priority" : "HIGH",
-	"userId" : "1"
+	"userId" : "1",
+	"projectId"
 }
 #update taska  PATCH na /tasks/{taskId}
 #UWAGA jesli dodamy userId task zostanie przydzielony do nowego usera

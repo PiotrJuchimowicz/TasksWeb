@@ -18,6 +18,8 @@ to zmienimy w danym projekcie project ownera
 {
 	"ownerId" : "2"
 }
+
+ GET NA projects/withTasks/{projectId} zwraca projekt z taskami
 #GET na users/withManagedProjects/{userId}
 zwroci projekty w ktorch project ownerem jest user o danym userId
 

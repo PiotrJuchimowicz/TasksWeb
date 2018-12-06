@@ -7,13 +7,8 @@ import com.company.project.model.TaskEntity;
 import com.company.project.model.UserEntity;
 import com.company.project.service.ProjectService;
 import com.company.project.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
-
-import java.util.Set;
 
 @Component
 public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
@@ -21,7 +16,7 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
     private ProjectService projectService;
 
     @Autowired
-    public TaskMapper(UserService userService,ProjectService projectService) {
+    public TaskMapper(UserService userService, ProjectService projectService) {
         this.userService = userService;
         this.projectService = projectService;
     }
@@ -32,7 +27,7 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
             throw new MapperException("Unable to map from TaskDto to existing TaskEntity");
         }
         Long projectId = taskDto.getProjectId();
-        if(projectId!=null){
+        if (projectId != null) {
             throw new UnsupportedOperationException("Task can not be assignet to different project");
         }
         Long userId = taskDto.getUserId();
@@ -74,7 +69,7 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
 
     @Override
     public TaskDto fromEntityToNewDto(TaskEntity taskEntity) {
-        if(taskEntity==null){
+        if (taskEntity == null) {
             throw new MapperException("Unable to map from TaskEntity to TaskDto");
         }
         TaskDto taskDto = new TaskDto();
