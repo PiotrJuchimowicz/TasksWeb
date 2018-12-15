@@ -67,5 +67,8 @@ zwroci projekty w ktorch project ownerem jest user o danym userId
 #usuniecie tabeli
 #DELETE na /tables/{tableId}
 #pobranie tabelie GET na tables/ lub GET na tables/{tableId}
+#pobiera taski wraz z projektem
+GET na projects/withTasks/{projectId}
+
 
 
