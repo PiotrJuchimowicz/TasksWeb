@@ -20,7 +20,7 @@ public class SecurityController {
         this.accountService = accountService;
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Long login(@RequestBody Map<String, String> request) {
         String email = request.get("email");
         String password = request.get("password");
