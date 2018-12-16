@@ -1,9 +1,9 @@
 package com.company.project.service_impl;
 
 
-import com.company.project.model.AccountEntity;
-import com.company.project.model.RoleEntity;
-import com.company.project.model.UserEntity;
+import com.company.project.dto.ProjectDto;
+import com.company.project.mapper.ProjectMapper;
+import com.company.project.model.*;
 import com.company.project.repository.AbstractRepository;
 import com.company.project.repository.TaskRepository;
 import com.company.project.repository.UserRepository;
@@ -13,14 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
 public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements UserService {
+    private ProjectMapper projectMapper;
+
     @Autowired
-    public UserServiceImpl(AbstractRepository<UserEntity> abstractRepository) {
+    public UserServiceImpl(AbstractRepository<UserEntity> abstractRepository,
+                           ProjectMapper projectMapper) {
         super(abstractRepository);
+        this.projectMapper = projectMapper;
     }
 
     @Override
@@ -62,6 +68,21 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements 
         UserEntity userEntity = this.read(userId);
         Hibernate.initialize(userEntity.getManagedProjects());
         return userEntity;
+    }
+
+    @Override
+    public List<ProjectDto> getProjectsInWhichHeParticipates(Long id) {
+        UserEntity userEntity = this.read(id);
+        GroupEntity groupEntity = userEntity.getGroup();
+        Hibernate.initialize(groupEntity.getTables());
+        Set<TableEntity> tableEntities = groupEntity.getTables();
+        List<ProjectDto> projectDtos = new LinkedList<>();
+        for(TableEntity tableEntity : tableEntities){
+            ProjectEntity projectEntity = tableEntity.getProject();
+            ProjectDto projectDto =  projectMapper.fromEntityToNewDto(projectEntity);
+            projectDtos.add(projectDto);
+        }
+        return projectDtos;
     }
 
     private UserRepository getUserRepository() {

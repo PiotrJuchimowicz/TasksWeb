@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -46,6 +47,11 @@ public class UserController extends AbstractController<UserEntity, UserDto> {
         userDto.setRoles(null);
         userDto.setAccount(null);
         return userDto;
+    }
+
+    @GetMapping("/withProjectsHeParticipates/{id}")
+    public List<ProjectDto> getProjectsInWhichHeParticipates(@PathVariable("id")Long id){
+        return  getUserService().getProjectsInWhichHeParticipates(id);
     }
 
     @GetMapping("/withManagedProjects/{userId}")
