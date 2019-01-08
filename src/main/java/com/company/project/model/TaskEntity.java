@@ -17,11 +17,12 @@ import java.util.Set;
 public class TaskEntity extends AbstractEntity {
     private String name;
     private String description;
+    private Boolean isDone = false;
     @ManyToOne(fetch = FetchType.EAGER)
     private ProjectEntity projectEntity;
 
     public enum Priority {
-        HIGH, MEDIUM, SMALL
+        HIGH, MEDIUM, LOW
     }
 
     @Enumerated(value = EnumType.STRING)
@@ -51,12 +52,13 @@ public class TaskEntity extends AbstractEntity {
         return Objects.equals(this.getId(), that.getId()) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
+                Objects.equals(isDone, that.isDone) &&
                 priority == that.priority;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, priority, this.getId());
+        return Objects.hash(name, description, priority,isDone, this.getId());
 
     }
 }

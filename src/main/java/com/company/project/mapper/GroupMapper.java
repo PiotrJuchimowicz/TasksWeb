@@ -2,6 +2,7 @@ package com.company.project.mapper;
 
 import com.company.project.dto.GroupDto;
 import com.company.project.exception.MapperException;
+import com.company.project.exception.UnableToFindUserWithEmail;
 import com.company.project.model.GroupEntity;
 import com.company.project.model.UserEntity;
 import com.company.project.service.GroupService;
@@ -31,9 +32,13 @@ public class GroupMapper implements AbstractMapper<GroupEntity, GroupDto> {
         if(name!=null){
             groupEntity.setName(name);
         }
-        Long userId = groupDto.getUserId();
+        UserEntity userEntity = userService.findByEmail(groupDto.getUserEmail());
+        if(userEntity==null){
+            throw new UnableToFindUserWithEmail("Unable to find user with email: " + groupDto.getUserEmail());
+        }
+        Long userId = userEntity.getId();
         if(userId!=null){
-            UserEntity userEntity = userService.read(userId);
+            userEntity = userService.read(userId);
             Set<UserEntity> userEntities = groupService.getGroupWithUsers(groupEntity.getId()).getUsersInGroup();
             groupEntity.setUsersInGroup(userEntities);
             groupEntity.addUserToGroup(userEntity);

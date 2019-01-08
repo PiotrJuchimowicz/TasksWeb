@@ -2,6 +2,8 @@ package com.company.project.mapper;
 
 import com.company.project.dto.TaskDto;
 import com.company.project.exception.MapperException;
+import com.company.project.exception.UnableToFindObjectException;
+import com.company.project.exception.UnableToFindUserWithEmail;
 import com.company.project.model.ProjectEntity;
 import com.company.project.model.TaskEntity;
 import com.company.project.model.UserEntity;
@@ -30,9 +32,14 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
         if (projectId != null) {
             throw new UnsupportedOperationException("Task can not be assignet to different project");
         }
-        Long userId = taskDto.getUserId();
+        String userEmail = taskDto.getUserEmail();
+        UserEntity userEntity = userService.findByEmail(userEmail);
+        if(userEntity==null){
+            throw new UnableToFindUserWithEmail("User with email: " + userEmail+ " does not exist");
+        }
+        Long userId = userEntity.getId();
         if (userId != null) {
-            UserEntity userEntity = userService.findUserWithTasks(userId);
+            userEntity = userService.findUserWithTasks(userId);
             userEntity.addTask(taskEntity);
         }
         String name = taskDto.getName();
@@ -48,6 +55,10 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
             TaskEntity.Priority priority = TaskEntity.Priority.valueOf(priorityString);
             taskEntity.setPriority(priority);
         }
+        Boolean isDone = taskDto.getIsDone();
+        if(isDone!=null){
+            taskEntity.setIsDone(isDone);
+        }
     }
 
     @Override
@@ -60,10 +71,14 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
         taskEntity.setName(taskDto.getName());
         TaskEntity.Priority priority = TaskEntity.Priority.valueOf(taskDto.getPriority());
         taskEntity.setPriority(priority);
-        UserEntity userEntity = userService.read(taskDto.getUserId());
+        UserEntity userEntity = userService.findByEmail(taskDto.getUserEmail());
+        if(userEntity==null){
+            throw new UnableToFindUserWithEmail("Unable to find user with emaiL: " + taskDto.getUserEmail());
+        }
         taskEntity.getUsers().add(userEntity);
         ProjectEntity projectEntity = projectService.read(taskDto.getProjectId());
         taskEntity.setProjectEntity(projectEntity);
+        taskEntity.setIsDone(taskDto.getIsDone());
         return taskEntity;
     }
 
@@ -78,6 +93,7 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
         taskDto.setDescription(taskEntity.getDescription());
         taskDto.setPriority(taskEntity.getPriority().toString());
         taskDto.setProjectId(taskEntity.getProjectEntity().getId());
+        taskDto.setIsDone(taskEntity.getIsDone());
         return taskDto;
     }
 }

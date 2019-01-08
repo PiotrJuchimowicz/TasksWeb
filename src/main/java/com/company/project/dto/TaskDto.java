@@ -13,8 +13,9 @@ public class TaskDto extends AbstractDto {
     private String name;
     private String description;
     private String priority;
-    private Long userId;
+    private String userEmail;
     private Long projectId;
+    private Boolean isDone;
     private Set<UserDto> users;
 
 }

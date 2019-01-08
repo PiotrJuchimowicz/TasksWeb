@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 public class GroupDto extends AbstractDto {
     private String name;
-    private Long userId;
+    private String userEmail;
     private Set<UserDto> users;
     private Set<TableDto> tables;
 }
