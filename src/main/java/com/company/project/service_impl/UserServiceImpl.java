@@ -1,12 +1,8 @@
 package com.company.project.service_impl;
 
 
-import com.company.project.dto.ProjectDto;
-import com.company.project.exception.MapperException;
-import com.company.project.mapper.ProjectMapper;
 import com.company.project.model.*;
 import com.company.project.repository.AbstractRepository;
-import com.company.project.repository.TaskRepository;
 import com.company.project.repository.UserRepository;
 import com.company.project.service.UserService;
 import org.hibernate.Hibernate;
@@ -58,7 +54,7 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements 
     public UserEntity findUserWithTasks(Long userId) {
         UserEntity userEntity = this.read(userId);
         Hibernate.initialize(userEntity.getTasks());
-        return  userEntity;
+        return userEntity;
     }
 
     @Override
@@ -69,32 +65,21 @@ public class UserServiceImpl extends AbstractServiceImpl<UserEntity> implements 
     }
 
     @Override
-    public List<ProjectDto> getProjectsInWhichHeParticipates(Long id) {
+    public List<ProjectEntity> getProjectsInWhichHeParticipates(Long id) {
         UserEntity userEntity = this.read(id);
         GroupEntity groupEntity = userEntity.getGroup();
         Hibernate.initialize(groupEntity.getTables());
         Set<TableEntity> tableEntities = groupEntity.getTables();
-        List<ProjectDto> projectDtos = new LinkedList<>();
-        for(TableEntity tableEntity : tableEntities){
+        List<ProjectEntity> projectEntities = new LinkedList<>();
+        for (TableEntity tableEntity : tableEntities) {
             ProjectEntity projectEntity = tableEntity.getProject();
-            ProjectDto projectDto =  this.fromEntityToNewDto(projectEntity);
-            projectDtos.add(projectDto);
+            projectEntities.add(projectEntity);
         }
-        return projectDtos;
+        return projectEntities;
     }
 
     private UserRepository getUserRepository() {
         return (UserRepository) this.getAbstractRepository();
     }
-    private ProjectDto fromEntityToNewDto(ProjectEntity projectEntity) {
-        if(projectEntity==null){
-            throw new MapperException("Unable to map from ProjectEntity to ProjectDto");
-        }
-        ProjectDto projectDto = new ProjectDto();
-        projectDto.setId(projectEntity.getId());
-        projectDto.setOwnerId(projectEntity.getOwner().getId());
-        projectDto.setName(projectEntity.getName());
-        projectDto.setDescription(projectEntity.getDescription());
-        return projectDto;
-    }
+
 }

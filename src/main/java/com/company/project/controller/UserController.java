@@ -9,17 +9,20 @@ import com.company.project.model.TaskEntity;
 import com.company.project.model.UserEntity;
 import com.company.project.service.AbstractService;
 import com.company.project.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
 @CrossOrigin(origins = "http://localhost:4200")
+@Slf4j
 public class UserController extends AbstractController<UserEntity, UserDto> {
     private AbstractMapper<TaskEntity, TaskDto> taskMapper;
     private AbstractMapper<ProjectEntity, ProjectDto> projectMapper;
@@ -51,7 +54,13 @@ public class UserController extends AbstractController<UserEntity, UserDto> {
 
     @GetMapping("/withProjectsHeParticipates/{id}")
     public List<ProjectDto> getProjectsInWhichHeParticipates(@PathVariable("id")Long id){
-        return  getUserService().getProjectsInWhichHeParticipates(id);
+        List<ProjectEntity> projectEntities = this.getUserService().getProjectsInWhichHeParticipates(id);
+        List<ProjectDto> projectDtos = new LinkedList<>();
+        for(ProjectEntity projectEntity: projectEntities){
+            ProjectDto projectDto = this.projectMapper.fromEntityToNewDto(projectEntity);
+            projectDtos.add(projectDto);
+        }
+        return projectDtos;
     }
 
     @GetMapping("/withManagedProjects/{userId}")
@@ -69,7 +78,6 @@ public class UserController extends AbstractController<UserEntity, UserDto> {
         userDto.setManagedProjects(projectDtos);
         return userDto;
     }
-
     private UserService getUserService() {
         return (UserService) this.getAbstractService();
     }
