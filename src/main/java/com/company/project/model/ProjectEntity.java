@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "PROJECT_T")
-@ToString(exclude = {"tables", "owner"}, callSuper = true)
+@ToString(exclude = {"tables", "owner","tasks"}, callSuper = true)
 @Setter
 @Getter
 public class ProjectEntity extends AbstractEntity {
