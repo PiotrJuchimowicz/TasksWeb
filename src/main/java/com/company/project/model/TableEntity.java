@@ -4,14 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@javax.persistence.Table(name = "TABLE_T")
+@Table(name = "TABLE_T")
 @ToString(exclude = {"group", "project"}, callSuper = true)
 @Setter
 @Getter

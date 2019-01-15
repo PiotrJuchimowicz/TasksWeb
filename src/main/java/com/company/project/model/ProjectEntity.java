@@ -17,7 +17,7 @@ import java.util.Set;
 public class ProjectEntity extends AbstractEntity {
     private String name;
     private String description;
-    @OneToMany(cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "projectEntity",cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<TaskEntity> tasks = new LinkedHashSet<>();
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
