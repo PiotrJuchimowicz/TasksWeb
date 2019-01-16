@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
 
-@RestController
+@RestController("KIKI")
 @RequestMapping("/messages")
 @CrossOrigin(origins = "http://localhost:4200")
 public class MessageController extends AbstractController<MessageEntity, MessageDto> {

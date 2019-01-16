@@ -2,7 +2,6 @@ package com.company.project.mapper;
 
 import com.company.project.dto.TaskDto;
 import com.company.project.exception.MapperException;
-import com.company.project.exception.UnableToFindObjectException;
 import com.company.project.exception.UnableToFindUserWithEmail;
 import com.company.project.model.ProjectEntity;
 import com.company.project.model.TaskEntity;
@@ -33,14 +32,17 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
             throw new UnsupportedOperationException("Task can not be assignet to different project");
         }
         String userEmail = taskDto.getUserEmail();
-        UserEntity userEntity = userService.findByEmail(userEmail);
-        if(userEntity==null){
-            throw new UnableToFindUserWithEmail("User with email: " + userEmail+ " does not exist");
-        }
-        Long userId = userEntity.getId();
-        if (userId != null) {
-            userEntity = userService.findUserWithTasks(userId);
-            userEntity.addTask(taskEntity);
+        if (taskDto.getUserEmail() != null) {
+            UserEntity userEntity = userService.findByEmail(userEmail);
+            if (userEntity == null) {
+                throw new UnableToFindUserWithEmail("User with email: " + userEmail + " does not exist");
+            }
+
+            Long userId = userEntity.getId();
+            if (userId != null) {
+                userEntity = userService.findUserWithTasks(userId);
+                userEntity.addTask(taskEntity);
+            }
         }
         String name = taskDto.getName();
         if (name != null) {
@@ -56,7 +58,7 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
             taskEntity.setPriority(priority);
         }
         Boolean isDone = taskDto.getIsDone();
-        if(isDone!=null){
+        if (isDone != null) {
             taskEntity.setIsDone(isDone);
         }
     }
@@ -72,7 +74,7 @@ public class TaskMapper implements AbstractMapper<TaskEntity, TaskDto> {
         TaskEntity.Priority priority = TaskEntity.Priority.valueOf(taskDto.getPriority());
         taskEntity.setPriority(priority);
         UserEntity userEntity = userService.findByEmail(taskDto.getUserEmail());
-        if(userEntity==null){
+        if (userEntity == null) {
             throw new UnableToFindUserWithEmail("Unable to find user with emaiL: " + taskDto.getUserEmail());
         }
         taskEntity.getUsers().add(userEntity);
